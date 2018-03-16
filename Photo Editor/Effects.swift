@@ -13,6 +13,7 @@ enum Effect {
     case blur
     case invert
     case monochrome
+    case exposure
     
     var displayName: String {
         switch self {
@@ -24,6 +25,9 @@ enum Effect {
             
             case .monochrome:
                 return NSLocalizedString("Black & White", comment: "Display name for the monochrome effect")
+            
+            case .exposure:
+                return NSLocalizedString("Exposure", comment: "Display name for the monochrome effect")
         }
     }
     
@@ -37,6 +41,10 @@ enum Effect {
             
             case .monochrome:
                 return "CIPhotoEffectMono"
+            
+            case .exposure:
+                return "CIExposureAdjust"
+            
         }
     }
     
@@ -46,5 +54,5 @@ enum Effect {
         return filter
     }
     
-    static var allEffects: [Effect] = [.blur, .invert, .monochrome]
+    static var allEffects: [Effect] = [.blur, .invert, .monochrome, .exposure]
 }
