@@ -13,19 +13,29 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     @IBOutlet weak var effectSelectionPopUp: NSPopUpButton!
     @IBOutlet weak var applyFilterButton: NSButton!
     
+
+    @IBOutlet weak var mExposureSlider: NSSlider!
+    
     let filterEffects = Effects()
     var photoController: PhotoController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         effectSelectionPopUp.removeAllItems()
-        EffectsList.allEffects.enumerated().forEach { index, effect in
+        EffectsList.allNonAdjustable.enumerated().forEach { index, effect in
             let item = NSMenuItem(title: effect.displayName, action: nil, keyEquivalent: "")
             item.tag = index
             effectSelectionPopUp.menu!.addItem(item)
         }
+        
+        self.setupExposure()
     }
-
+    
+    private func setupExposure(){
+        //mExposureSlider.setValue(mExposureSlider.floatValue/4.0, forKey: "CIAttributeSliderMin")
+        //mExposureSlider.setValue(mExposureSlider.floatValue/4.0, forKey: "CIAttributeSliderMax")
+    }
+    
     private func imageByApplying(_ filter: CIFilter, to image: NSImage) -> NSImage{
         let sourceImage = CIImage(data: image.tiffRepresentation!)
         filter.setValue(sourceImage, forKey: kCIInputImageKey)
@@ -37,14 +47,18 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
         
         return result
     }
+    @IBAction func onExposureSlider(_ sender: NSSlider) {
+        if let image = photoController?.photo.image {
+            let val = mExposureSlider.floatValue/10.0
+            let filter = filterEffects.getExposure(params: val)
+            let newImage = imageByApplying(filter, to: image)
+            photoController?.setPhotoImage(newImage)
+        }
+    }
     
     @IBAction func btnApplyClicked(_ sender: NSButton) {
         if let image = photoController?.photo.image {
-            // set-up the relevant filter with params
-            let exposureParam = 0.5 // get value from the exposure slider
-            let filter = filterEffects.getFilterWithParams(EffectsList.allEffects[effectSelectionPopUp.selectedTag()], params: exposureParam)
-            
-            // apply filter to image
+            let filter = filterEffects.getFilter(EffectsList.allNonAdjustable[effectSelectionPopUp.selectedTag()])
             let newImage = imageByApplying(filter, to: image)
             photoController?.setPhotoImage(newImage)
         }

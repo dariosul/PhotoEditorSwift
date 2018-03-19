@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="16A227" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
@@ -534,7 +535,7 @@
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
-                        <rect key="contentRect" x="196" y="200" width="650" height="500"/>
+                        <rect key="contentRect" x="196" y="197" width="650" height="503"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <toolbar key="toolbar" implicitIdentifier="C6673821-6097-4B22-8E78-597504484061" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="6sU-Oc-usP">
                             <allowedToolbarItems>
@@ -626,7 +627,7 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="78" y="157"/>
+            <point key="canvasLocation" x="78" y="155.5"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="XLY-QE-Tr9">
@@ -638,6 +639,9 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="249" width="291" height="252"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+                        <connections>
+                            <outlet property="delegate" destination="U5D-4y-3uZ" id="PRz-xW-3jQ"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="Auh-VZ-Bel" kind="relationship" relationship="window.shadowedContentViewController" id="Zpe-Kt-fGE"/>
@@ -668,7 +672,7 @@ DQ
                                     <action selector="ok:" target="Egj-kN-h84" id="cqf-jK-jEL"/>
                                 </connections>
                             </button>
-                            <box title="Image Size" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="OWA-hc-DpH">
+                            <box borderType="line" title="Image Size" translatesAutoresizingMaskIntoConstraints="NO" id="OWA-hc-DpH">
                                 <rect key="frame" x="17" y="49" width="237" height="124"/>
                                 <view key="contentView" id="CVZ-mA-o0L">
                                     <rect key="frame" x="1" y="1" width="235" height="108"/>
@@ -772,8 +776,6 @@ DQ
                                         <constraint firstItem="rrc-dW-Srw" firstAttribute="leading" secondItem="eh1-Um-rpU" secondAttribute="trailing" constant="8" id="yMY-2n-CuY"/>
                                     </constraints>
                                 </view>
-                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6sL-sn-3Nr">
                                 <rect key="frame" x="93" y="13" width="82" height="32"/>
@@ -820,7 +822,7 @@ Gw
                         <rect key="frame" x="0.0" y="0.0" width="271" height="209"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="5S3-Pi-aGM">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="5S3-Pi-aGM">
                                 <rect key="frame" x="0.0" y="0.0" width="271" height="209"/>
                                 <subviews>
                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="x3n-eG-EYH">
@@ -894,8 +896,12 @@ Gw
                     <splitView key="splitView" wantsLayer="YES" dividerStyle="thin" vertical="YES" id="mmG-L0-LTT">
                         <rect key="frame" x="383" y="0.0" width="497" height="338"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="7oG-ue-pcy" id="ik7-zT-JhQ"/>
+                        </connections>
                     </splitView>
                     <connections>
+                        <outlet property="splitView" destination="mmG-L0-LTT" id="cmN-Et-tUz"/>
                         <segue destination="XBV-V4-jOc" kind="relationship" relationship="splitItems" id="kYt-ju-8Zg"/>
                         <segue destination="cdX-YB-hsT" kind="relationship" relationship="splitItems" id="0LZ-9K-QYL"/>
                     </connections>
@@ -912,7 +918,7 @@ Gw
                         <rect key="frame" x="0.0" y="0.0" width="173" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="9HW-eq-EHh">
+                            <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="9HW-eq-EHh">
                                 <rect key="frame" x="0.0" y="0.0" width="173" height="300"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDo-St-fvb">
@@ -928,7 +934,7 @@ Gw
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="170" minWidth="40" maxWidth="1000" id="YBP-97-Gl8">
+                                                        <tableColumn identifier="" width="170" minWidth="40" maxWidth="1000" id="YBP-97-Gl8">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1082,7 +1088,7 @@ Gw
                                 </scroller>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6P3-Yb-NWA">
-                                <rect key="frame" x="180" y="266" width="159" height="29"/>
+                                <rect key="frame" x="183" y="266" width="154" height="29"/>
                                 <shadow key="shadow" blurRadius="3">
                                     <size key="offset" width="1" height="1"/>
                                     <color key="color" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
@@ -1156,7 +1162,7 @@ Gw
                                     <rect key="frame" x="1" y="1" width="211" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView ambiguous="YES" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="EZk-jr-k4A">
+                                        <textView ambiguous="YES" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="EZk-jr-k4A">
                                             <rect key="frame" x="0.0" y="0.0" width="211" height="65"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1171,8 +1177,6 @@ Gw
                                                 </fragment>
                                             </attributedString>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="211" height="65"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1304,6 +1308,23 @@ Gw
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AvI-C2-wKE">
+                                <rect key="frame" x="349" y="5" width="96" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" alignment="left" minValue="-25" maxValue="25" tickMarkPosition="below" sliderType="linear" id="3WK-dz-M3k"/>
+                                <connections>
+                                    <action selector="onExposureSlider:" target="BS2-6K-OIf" id="wYL-uz-oRn"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vso-AS-5Mf">
+                                <rect key="frame" x="262" y="6" width="71" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure:" id="sbr-0x-VOG">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="JOS-7K-ga4" firstAttribute="leading" secondItem="Wy6-0Z-elh" secondAttribute="leading" constant="8" id="EtT-S9-0vx"/>
@@ -1315,6 +1336,8 @@ Gw
                     <connections>
                         <outlet property="applyFilterButton" destination="CN8-6A-hil" id="Fmu-aq-Cwv"/>
                         <outlet property="effectSelectionPopUp" destination="VyG-gL-HQc" id="tGR-er-Yx2"/>
+                        <outlet property="mExposureSlider" destination="AvI-C2-wKE" id="ml6-B5-0wx"/>
+                        <outlet property="onExposureSlider" destination="AvI-C2-wKE" id="1aM-kr-1ma"/>
                     </connections>
                 </viewController>
                 <customObject id="cPI-q0-kyl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

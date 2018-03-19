@@ -49,7 +49,7 @@ enum EffectsList {
         }
     }
 
-    static var allEffects: [EffectsList] = [.blur, .invert, .monochrome, .exposure]
+    static var allNonAdjustable: [EffectsList] = [.blur, .invert, .monochrome]
 }
 
 class Effects {
@@ -58,29 +58,25 @@ class Effects {
     var mInvertColors: CIFilter? = nil
     var mEffectMonoChrome: CIFilter? = nil
     var mExposure: CIFilter? = nil
+    
     var mAllFilters: [EffectsList: CIFilter?]
     
     init(){
         mAllFilters = [EffectsList.blur: self.mBlur, EffectsList.invert: self.mInvertColors, EffectsList.monochrome: self.mEffectMonoChrome, EffectsList.exposure: self.mExposure]
     }
     
-    func getFilterWithParams(_ effectType: EffectsList, params filterParams: Any? = nil)-> CIFilter{
-//        switch effectType{
-//         case EffectsList.blur, EffectsList.invert, EffectsList.monochrome:
-//            return getFilter(effectType)
-        
-        let filter = getFilter(effectType)
-        
-        if effectType == EffectsList.exposure{
-            setExposure(filterParams)
+    func getExposure(params filterParams: Any? = nil)-> CIFilter{
+
+        if (mExposure == nil)
+        {
+            mExposure = CIFilter.init(name: "CIExposureAdjust")
         }
-        return filter
+        setExposure(filterParams)
+        
+        return mExposure!
     }
     
     func setExposure(_ exposureParams: Any?)-> Void{
-        if mExposure == nil{
-            mExposure = CIFilter(name:"CIExposureAdjust")
-        }
         if exposureParams != nil {
             mExposure?.setValue(exposureParams as! Float, forKey: "inputEV")
         }
@@ -88,6 +84,7 @@ class Effects {
 
     func getFilter(_ effectType: EffectsList) -> CIFilter {
         var filter = mAllFilters[effectType]!
+        
         if filter == nil {
             filter = CIFilter(name: effectType.filterName)
             filter?.setDefaults()
