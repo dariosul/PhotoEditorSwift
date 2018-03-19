@@ -13,13 +13,13 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     @IBOutlet weak var effectSelectionPopUp: NSPopUpButton!
     @IBOutlet weak var applyFilterButton: NSButton!
     
+    let filterEffects = Effects()
     var photoController: PhotoController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         effectSelectionPopUp.removeAllItems()
-        Effect.allEffects.enumerated().forEach { index, effect in
+        EffectsList.allEffects.enumerated().forEach { index, effect in
             let item = NSMenuItem(title: effect.displayName, action: nil, keyEquivalent: "")
             item.tag = index
             effectSelectionPopUp.menu!.addItem(item)
@@ -40,7 +40,11 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     
     @IBAction func btnApplyClicked(_ sender: NSButton) {
         if let image = photoController?.photo.image {
-            let filter = Effect.allEffects[effectSelectionPopUp.selectedTag()].createFilter()
+            // set-up the relevant filter with params
+            let exposureParam = 0.5 // get value from the exposure slider
+            let filter = filterEffects.getFilterWithParams(EffectsList.allEffects[effectSelectionPopUp.selectedTag()], params: exposureParam)
+            
+            // apply filter to image
             let newImage = imageByApplying(filter, to: image)
             photoController?.setPhotoImage(newImage)
         }

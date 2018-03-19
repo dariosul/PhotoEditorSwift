@@ -9,7 +9,7 @@
 import Cocoa
 import CoreImage
 
-enum Effect {
+enum EffectsList {
     case blur
     case invert
     case monochrome
@@ -17,42 +17,82 @@ enum Effect {
     
     var displayName: String {
         switch self {
-            case .blur:
-                return NSLocalizedString("Blur", comment: "Display name for the blur effect")
+        case .blur:
+            return NSLocalizedString("Blur", comment: "Display name for the blur effect")
             
-            case .invert:
-                return NSLocalizedString("Invert Colors", comment: "Display name for the invert effect")
+        case .invert:
+            return NSLocalizedString("Invert Colors", comment: "Display name for the invert effect")
             
-            case .monochrome:
-                return NSLocalizedString("Black & White", comment: "Display name for the monochrome effect")
+        case .monochrome:
+            return NSLocalizedString("Black & White", comment: "Display name for the monochrome effect")
             
-            case .exposure:
-                return NSLocalizedString("Exposure", comment: "Display name for the monochrome effect")
+        case .exposure:
+            return NSLocalizedString("Exposure", comment: "Display name for the monochrome effect")
         }
     }
     
-    private var filterName: String {
+    var filterName: String {
+        //private var filterName: String {
         switch self {
-            case .blur:
-                return "CIGaussianBlur"
+        case .blur:
+            return "CIGaussianBlur"
             
-            case .invert:
-                return "CIColorInvert"
+        case .invert:
+            return "CIColorInvert"
             
-            case .monochrome:
-                return "CIPhotoEffectMono"
+        case .monochrome:
+            return "CIPhotoEffectMono"
             
-            case .exposure:
-                return "CIExposureAdjust"
+        case .exposure:
+            return "CIExposureAdjust"
             
         }
     }
+
+    static var allEffects: [EffectsList] = [.blur, .invert, .monochrome, .exposure]
+}
+
+class Effects {
     
-    func createFilter() -> CIFilter {
-        let filter = CIFilter(name: filterName)!
-        filter.setDefaults()
+    var mBlur: CIFilter? = nil
+    var mInvertColors: CIFilter? = nil
+    var mEffectMonoChrome: CIFilter? = nil
+    var mExposure: CIFilter? = nil
+    var mAllFilters: [EffectsList: CIFilter?]
+    
+    init(){
+        mAllFilters = [EffectsList.blur: self.mBlur, EffectsList.invert: self.mInvertColors, EffectsList.monochrome: self.mEffectMonoChrome, EffectsList.exposure: self.mExposure]
+    }
+    
+    func getFilterWithParams(_ effectType: EffectsList, params filterParams: Any? = nil)-> CIFilter{
+//        switch effectType{
+//         case EffectsList.blur, EffectsList.invert, EffectsList.monochrome:
+//            return getFilter(effectType)
+        
+        let filter = getFilter(effectType)
+        
+        if effectType == EffectsList.exposure{
+            setExposure(filterParams)
+        }
         return filter
     }
     
-    static var allEffects: [Effect] = [.blur, .invert, .monochrome, .exposure]
+    func setExposure(_ exposureParams: Any?)-> Void{
+        if mExposure == nil{
+            mExposure = CIFilter(name:"CIExposureAdjust")
+        }
+        if exposureParams != nil {
+            mExposure?.setValue(exposureParams as! Float, forKey: "inputEV")
+        }
+    }
+
+    func getFilter(_ effectType: EffectsList) -> CIFilter {
+        var filter = mAllFilters[effectType]!
+        if filter == nil {
+            filter = CIFilter(name: effectType.filterName)
+            filter?.setDefaults()
+        }
+            
+        return filter!
+    }
 }
