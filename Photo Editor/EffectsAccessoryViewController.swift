@@ -22,7 +22,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     override func viewDidLoad() {
         super.viewDidLoad()
         effectSelectionPopUp.removeAllItems()
-        EffectsList.allNonAdjustable.enumerated().forEach { index, effect in
+        EffectsList.allEffects.enumerated().forEach { index, effect in
             let item = NSMenuItem(title: effect.displayName, action: nil, keyEquivalent: "")
             item.tag = index
             effectSelectionPopUp.menu!.addItem(item)
@@ -48,8 +48,8 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
         return result
     }
     @IBAction func onExposureSlider(_ sender: NSSlider) {
-        if let image = photoController?.photo.image {
-            let val = mExposureSlider.floatValue/10.0
+        if let image = photoController?.photo.cachedImage {
+            let val = mExposureSlider.floatValue
             let filter = filterEffects.getExposure(params: val)
             let newImage = imageByApplying(filter, to: image)
             photoController?.setPhotoImage(newImage)
@@ -58,9 +58,10 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     
     @IBAction func btnApplyClicked(_ sender: NSButton) {
         if let image = photoController?.photo.image {
-            let filter = filterEffects.getFilter(EffectsList.allNonAdjustable[effectSelectionPopUp.selectedTag()])
+            let filter = filterEffects.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
             let newImage = imageByApplying(filter, to: image)
-            photoController?.setPhotoImage(newImage)
+//            photoController?.setPhotoImage(newImage)
+            photoController?.setCommitPhotoImage(newImage)
         }
     }
 

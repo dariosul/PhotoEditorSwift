@@ -1309,15 +1309,15 @@ Gw
                                 </customSpacing>
                             </stackView>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AvI-C2-wKE">
-                                <rect key="frame" x="349" y="5" width="96" height="19"/>
+                                <rect key="frame" x="349" y="-3" width="96" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" alignment="left" minValue="-25" maxValue="25" tickMarkPosition="below" sliderType="linear" id="3WK-dz-M3k"/>
+                                <sliderCell key="cell" state="on" alignment="left" minValue="-5" maxValue="5" doubleValue="-0.046875" tickMarkPosition="below" numberOfTickMarks="1" sliderType="linear" id="3WK-dz-M3k"/>
                                 <connections>
                                     <action selector="onExposureSlider:" target="BS2-6K-OIf" id="wYL-uz-oRn"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vso-AS-5Mf">
-                                <rect key="frame" x="262" y="6" width="71" height="17"/>
+                                <rect key="frame" x="262" y="5" width="71" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure:" id="sbr-0x-VOG">
                                     <font key="font" metaFont="system"/>

@@ -49,7 +49,8 @@ enum EffectsList {
         }
     }
 
-    static var allNonAdjustable: [EffectsList] = [.blur, .invert, .monochrome]
+    static var allEffects: [EffectsList] = [.blur, .invert, .monochrome, .exposure]
+//    static var allNonAdjustable: [EffectsList] = [.blur, .invert, .monochrome]
 }
 
 class Effects {
@@ -61,6 +62,7 @@ class Effects {
     
     var mAllFilters: [EffectsList: CIFilter?]
     
+    
     init(){
         mAllFilters = [EffectsList.blur: self.mBlur, EffectsList.invert: self.mInvertColors, EffectsList.monochrome: self.mEffectMonoChrome, EffectsList.exposure: self.mExposure]
     }
@@ -69,7 +71,7 @@ class Effects {
 
         if (mExposure == nil)
         {
-            mExposure = CIFilter.init(name: "CIExposureAdjust")
+            mExposure = getFilter(EffectsList.exposure)
         }
         setExposure(filterParams)
         

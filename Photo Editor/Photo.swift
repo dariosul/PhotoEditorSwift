@@ -12,6 +12,7 @@ class Photo : NSObject, NSCoding {
     
     var title = ""
     var image: NSImage?
+    var cachedImage: NSImage?
 
     /// Initialize a Photo object with no title and no image
     override init() {
@@ -21,6 +22,7 @@ class Photo : NSObject, NSCoding {
     init(title: String, image: NSImage) {
         self.title = title
         self.image = image
+        self.cachedImage = image
     }
     
     required init?(coder: NSCoder) {
