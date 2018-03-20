@@ -28,12 +28,18 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
             effectSelectionPopUp.menu!.addItem(item)
         }
         
-        self.setupExposure()
+        mExposureSlider.isEnabled = false
     }
     
-    private func setupExposure(){
-        //mExposureSlider.setValue(mExposureSlider.floatValue/4.0, forKey: "CIAttributeSliderMin")
-        //mExposureSlider.setValue(mExposureSlider.floatValue/4.0, forKey: "CIAttributeSliderMax")
+    @IBAction func onItemChanged(_ sender: NSPopUpButton) {
+        if  effectSelectionPopUp.selectedItem!.title == EffectsList.exposure.displayName {
+            mExposureSlider.isEnabled = true
+            runExposurePreview()
+        } else{
+            mExposureSlider.isEnabled = false
+            // discard exposure preview
+            photoController?.setPhotoImage(photoController?.photo.cachedImage)
+        }
     }
     
     private func imageByApplying(_ filter: CIFilter, to image: NSImage) -> NSImage{
@@ -47,7 +53,9 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
         
         return result
     }
-    @IBAction func onExposureSlider(_ sender: NSSlider) {
+    
+    // this will make an exposure preview that runs on a previously commited image
+    func runExposurePreview(){
         if let image = photoController?.photo.cachedImage {
             let val = mExposureSlider.floatValue
             let filter = filterEffects.getExposure(params: val)
@@ -56,11 +64,14 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
         }
     }
     
+    @IBAction func onExposureSlider(_ sender: NSSlider) {
+        runExposurePreview()
+    }
+    
     @IBAction func btnApplyClicked(_ sender: NSButton) {
         if let image = photoController?.photo.image {
             let filter = filterEffects.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
             let newImage = imageByApplying(filter, to: image)
-//            photoController?.setPhotoImage(newImage)
             photoController?.setCommitPhotoImage(newImage)
         }
     }

@@ -74,7 +74,6 @@ class Effects {
             mExposure = getFilter(EffectsList.exposure)
         }
         setExposure(filterParams)
-        
         return mExposure!
     }
     
