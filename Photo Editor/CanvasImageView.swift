@@ -125,11 +125,12 @@ class CanvasImageView: NSView {
             let path = NSBezierPath()
             path.move(to: lastPoint)
             path.line(to: currentPoint)
+            path.lineCapStyle = NSBezierPath.LineCapStyle.roundLineCapStyle
             
-            let color = NSColor.black
+            let color = NSColor.black // TODO
             color.set()
-            path.lineWidth = 4.0 // easy to see
-            
+            path.lineWidth = 14.0 // easy to see // TODO
+            //path.curve(to:currentPoint, controlPoint1: lastPoint, controlPoint2: lastPoint)
             path.stroke()
             
             image.unlockFocus()
