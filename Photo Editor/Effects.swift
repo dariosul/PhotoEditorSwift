@@ -18,7 +18,7 @@ enum EffectsList {
     var displayName: String {
         switch self {
         case .blur:
-            return NSLocalizedString("Blur", comment: "Display name for the blur effect")
+            return NSLocalizedString("Masked Blur", comment: "Display name for the blur effect")
             
         case .invert:
             return NSLocalizedString("Invert Colors", comment: "Display name for the invert effect")
@@ -35,7 +35,7 @@ enum EffectsList {
         //private var filterName: String {
         switch self {
         case .blur:
-            return "CIGaussianBlur"
+            return "CIMaskedVariableBlur" //"CIGaussianBlur"
             
         case .invert:
             return "CIColorInvert"
@@ -50,7 +50,7 @@ enum EffectsList {
     }
 
     static var allEffects: [EffectsList] = [.blur, .invert, .monochrome, .exposure]
-//    static var allNonAdjustable: [EffectsList] = [.blur, .invert, .monochrome]
+    static var allNonAdjustable: [EffectsList] = [.blur, .invert, .monochrome]
 }
 
 class Effects {
@@ -60,18 +60,11 @@ class Effects {
     var mEffectMonoChrome: CIFilter? = nil
     var mExposure: CIFilter? = nil
     
-    var mAllFilters: [EffectsList: CIFilter?]
-    
-    
-    init(){
-        mAllFilters = [EffectsList.blur: self.mBlur, EffectsList.invert: self.mInvertColors, EffectsList.monochrome: self.mEffectMonoChrome, EffectsList.exposure: self.mExposure]
-    }
-    
     func getExposure(params filterParams: Any? = nil)-> CIFilter{
-
         if (mExposure == nil)
         {
-            mExposure = getFilter(EffectsList.exposure)
+            mExposure = CIFilter(name: EffectsList.exposure.filterName)
+            mExposure?.setDefaults()
         }
         setExposure(filterParams)
         return mExposure!
@@ -83,14 +76,24 @@ class Effects {
         }
     }
 
-    func getFilter(_ effectType: EffectsList) -> CIFilter {
-        var filter = mAllFilters[effectType]!
-        
-        if filter == nil {
-            filter = CIFilter(name: effectType.filterName)
-            filter?.setDefaults()
-        }
+    func getFilter(_ effectType: EffectsList, params filterParams: Any? = nil)-> CIFilter{        
+        switch effectType{
+        case EffectsList.exposure:
+            return getExposure(params: filterParams)
+//
+//        case EffectsList.blur:
+//            return mBlur!
+//
+//        case EffectsList.invert:
+//            return mInvertColors!
+//
+//        case EffectsList.monochrome:
+//            return mEffectMonoChrome!
             
-        return filter!
+        default:
+           let filter = CIFilter(name: effectType.filterName)
+            filter?.setDefaults()
+            return filter!
+        }
     }
 }

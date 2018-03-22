@@ -82,7 +82,8 @@ class CanvasImageView: NSView {
     override func mouseDown(with event: NSEvent) {
         switch getEditMode() {
             case .move:
-                trackForMove(event: event)
+                //trackForMove(event: event)
+            fallthrough
             
             case .draw:
                 trackForDraw(event: event)

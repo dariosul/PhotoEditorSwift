@@ -13,7 +13,6 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     @IBOutlet weak var effectSelectionPopUp: NSPopUpButton!
     @IBOutlet weak var applyFilterButton: NSButton!
     
-
     @IBOutlet weak var mExposureSlider: NSSlider!
     
     let filterEffects = Effects()
@@ -44,7 +43,8 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     
     private func imageByApplying(_ filter: CIFilter, to image: NSImage) -> NSImage{
         let sourceImage = CIImage(data: image.tiffRepresentation!)
-        filter.setValue(sourceImage, forKey: kCIInputImageKey)
+        
+        filter.setValue(sourceImage, forKey: "inputImage")
         
         let outputImage = filter.outputImage!
         let result = NSImage(size: image.size)
@@ -69,10 +69,73 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     }
     
     @IBAction func btnApplyClicked(_ sender: NSButton) {
+        // this is an image you see on the screen
         if let image = photoController?.photo.image {
-            let filter = filterEffects.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
-            let newImage = imageByApplying(filter, to: image)
-            photoController?.setCommitPhotoImage(newImage)
+
+            if EffectsList.allEffects[effectSelectionPopUp.selectedTag()] == EffectsList.blur{
+                
+//                ////temp start
+//                // draw the radial gradient mask instead of image
+//                let gradientFilter = CIFilter(name: "CIRadialGradient",
+//                                                 withInputParameters: [
+//                                                    kCIInputCenterKey: CIVector(x: image.size.width/2, y: image.size.height/2),
+//                                                    "inputRadius0": 5,
+//                                                    "inputRadius1": 100,
+//                                                    "inputColor1": CIColor(red: 0, green: 0, blue: 0),
+//                                                    "inputColor0": CIColor(red: 1, green: 1, blue: 1)])!
+//
+//                let outCIImage = gradientFilter.outputImage!
+//
+//                let result = NSImage(size: image.size)
+//
+//                result.lockFocus()
+//                outCIImage.draw(at: NSZeroPoint, from: NSMakeRect(0, 0, image.size.width, image.size.height), operation: NSCompositingOperation.destinationAtop, fraction: 1.0)
+//                result.unlockFocus()
+//
+//                let imageRep = NSCIImageRep(ciImage: outCIImage)
+//                result.addRepresentation(imageRep)
+//
+//                photoController?.setCommitPhotoImage(result)
+//
+//                //// temp end
+
+                let sourceImage = CIImage(data: image.tiffRepresentation!)
+
+                // create a mask
+                let gradientImage = CIFilter(name: "CIRadialGradient",
+                                              withInputParameters: [
+                                                kCIInputCenterKey: CIVector(x: image.size.width/2, y: image.size.height/2),
+                                                "inputRadius0": 5,
+                                                "inputRadius1": 100,
+                                                "inputColor1": CIColor(red: 0, green: 0, blue: 0),
+                                                "inputColor0": CIColor(red: 1, green: 1, blue: 1)
+                    ])?.outputImage
+
+//                guard let inputMask = CIFilter(name: "CIStripesGenerator", withInputParameters: ["inputColor0" : NSColor.white, "inputColor1" : NSColor.black])!.outputImage
+//                    else{
+//                        return
+//                }
+
+                let maskedVariableBlurParams : [String : AnyObject] = [kCIInputImageKey: sourceImage!,
+                                                                       "inputRadius": 10.0 as AnyObject,
+                                                                       "inputMask" : gradientImage!]
+
+                let filter = CIFilter(name: "CIMaskedVariableBlur", withInputParameters: maskedVariableBlurParams)!;
+
+                let outputImage = filter.outputImage!
+                let result = NSImage(size: image.size)
+                let imageRep = NSCIImageRep(ciImage: outputImage)
+                result.addRepresentation(imageRep)
+
+                photoController?.setCommitPhotoImage(result)
+           
+            }else{
+                let filter = filterEffects.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
+
+                let newImage = imageByApplying(filter, to: image)
+                photoController?.setCommitPhotoImage(newImage)
+            }
+            
         }
     }
 
