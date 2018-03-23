@@ -9,7 +9,7 @@
 
 import Cocoa
 
-class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
+class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, MouseDraw {
     
     enum EditMode: Int {
         case move
@@ -148,6 +148,10 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
         } else {
             window?.appearance = nil // Goes back to the default Aqua appearance
         }
+    }
+    
+    func updateBrushPoints(mousePoints points: [NSPoint]) {
+        effectsAccessoryViewController.addBrushPoints(mousePoints: points)
     }
     
 }

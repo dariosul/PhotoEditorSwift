@@ -1268,7 +1268,7 @@ Gw
             <objects>
                 <viewController storyboardIdentifier="EffectsConfigurationAccessory" id="BS2-6K-OIf" customClass="EffectsAccessoryViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="Wy6-0Z-elh">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="26"/>
+                        <rect key="frame" x="0.0" y="0.0" width="691" height="26"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="equalSpacing" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOS-7K-ga4">
@@ -1312,7 +1312,7 @@ Gw
                                 </customSpacing>
                             </stackView>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AvI-C2-wKE">
-                                <rect key="frame" x="349" y="3" width="96" height="19"/>
+                                <rect key="frame" x="247" y="3" width="96" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="below" sliderType="linear" id="3WK-dz-M3k"/>
                                 <connections>
@@ -1320,9 +1320,26 @@ Gw
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vso-AS-5Mf">
-                                <rect key="frame" x="262" y="5" width="71" height="17"/>
+                                <rect key="frame" x="160" y="5" width="71" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure:" id="sbr-0x-VOG">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pCx-1u-tE7">
+                                <rect key="frame" x="524" y="3" width="96" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="4" maxValue="5" doubleValue="4" tickMarkPosition="below" sliderType="linear" id="UOc-A9-by8"/>
+                                <connections>
+                                    <action selector="onExposureSlider:" target="BS2-6K-OIf" id="uaa-t2-iu7"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yTn-BC-qmG">
+                                <rect key="frame" x="437" y="5" width="71" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Brush:" id="ss7-fQ-A1G">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1339,13 +1356,14 @@ Gw
                     <connections>
                         <outlet property="applyFilterButton" destination="CN8-6A-hil" id="Fmu-aq-Cwv"/>
                         <outlet property="effectSelectionPopUp" destination="VyG-gL-HQc" id="tGR-er-Yx2"/>
+                        <outlet property="mBrushWidth" destination="pCx-1u-tE7" id="go3-zU-BDs"/>
                         <outlet property="mExposureSlider" destination="AvI-C2-wKE" id="ml6-B5-0wx"/>
                         <outlet property="onExposureSlider" destination="AvI-C2-wKE" id="1aM-kr-1ma"/>
                     </connections>
                 </viewController>
                 <customObject id="cPI-q0-kyl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="316" y="-174"/>
+            <point key="canvasLocation" x="436.5" y="-174"/>
         </scene>
     </scenes>
     <resources>
