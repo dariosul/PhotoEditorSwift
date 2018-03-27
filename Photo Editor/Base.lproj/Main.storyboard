@@ -1268,14 +1268,14 @@ Gw
             <objects>
                 <viewController storyboardIdentifier="EffectsConfigurationAccessory" id="BS2-6K-OIf" customClass="EffectsAccessoryViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="Wy6-0Z-elh">
-                        <rect key="frame" x="0.0" y="0.0" width="691" height="26"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="26"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="equalSpacing" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOS-7K-ga4">
-                                <rect key="frame" x="8" y="4" width="186" height="18"/>
+                                <rect key="frame" x="8" y="4" width="116" height="18"/>
                                 <subviews>
-                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUl-1R-QK3">
-                                        <rect key="frame" x="0.0" y="0.0" width="132" height="18"/>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUl-1R-QK3">
+                                        <rect key="frame" x="0.0" y="0.0" width="62" height="18"/>
                                         <subviews>
                                             <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VyG-gL-HQc">
                                                 <rect key="frame" x="-3" y="-3" width="68" height="22"/>
@@ -1295,6 +1295,10 @@ Gw
                                                 </connections>
                                             </popUpButton>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="VyG-gL-HQc" secondAttribute="trailing" id="7ON-L6-f0a"/>
+                                            <constraint firstItem="VyG-gL-HQc" firstAttribute="leading" secondItem="SUl-1R-QK3" secondAttribute="leading" id="DcY-cF-MSr"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                         </visibilityPriorities>
@@ -1303,7 +1307,7 @@ Gw
                                         </customSpacing>
                                     </stackView>
                                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CN8-6A-hil">
-                                        <rect key="frame" x="135" y="-6" width="56" height="28"/>
+                                        <rect key="frame" x="65" y="-6" width="56" height="28"/>
                                         <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7zh-cO-OJB">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -1313,6 +1317,9 @@ Gw
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="CN8-6A-hil" firstAttribute="leading" secondItem="SUl-1R-QK3" secondAttribute="trailing" constant="8" id="zbD-bV-c5F"/>
+                                </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
@@ -1323,7 +1330,7 @@ Gw
                                 </customSpacing>
                             </stackView>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AvI-C2-wKE">
-                                <rect key="frame" x="317" y="3" width="96" height="19"/>
+                                <rect key="frame" x="247" y="3" width="96" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="92" id="wTp-SX-t7V"/>
                                 </constraints>
@@ -1333,7 +1340,7 @@ Gw
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vso-AS-5Mf">
-                                <rect key="frame" x="230" y="5" width="71" height="17"/>
+                                <rect key="frame" x="160" y="5" width="71" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67" id="j2T-9U-nVM"/>
                                 </constraints>
@@ -1344,7 +1351,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pCx-1u-tE7">
-                                <rect key="frame" x="516" y="3" width="104" height="19"/>
+                                <rect key="frame" x="446" y="3" width="104" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="TFh-x6-at0"/>
                                 </constraints>
@@ -1354,7 +1361,7 @@ Gw
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yTn-BC-qmG">
-                                <rect key="frame" x="429" y="5" width="71" height="17"/>
+                                <rect key="frame" x="359" y="5" width="71" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67" id="uZ1-wG-j9S"/>
                                 </constraints>
@@ -1372,14 +1379,14 @@ Gw
                             <constraint firstItem="AvI-C2-wKE" firstAttribute="leading" secondItem="Vso-AS-5Mf" secondAttribute="trailing" constant="20" id="EpP-5W-Dvs"/>
                             <constraint firstItem="JOS-7K-ga4" firstAttribute="leading" secondItem="Wy6-0Z-elh" secondAttribute="leading" constant="8" id="EtT-S9-0vx"/>
                             <constraint firstItem="Vso-AS-5Mf" firstAttribute="leading" secondItem="JOS-7K-ga4" secondAttribute="trailing" constant="38" id="SQs-yT-Hss"/>
+                            <constraint firstItem="yTn-BC-qmG" firstAttribute="centerY" secondItem="Wy6-0Z-elh" secondAttribute="centerY" id="Soq-PM-uoA"/>
                             <constraint firstItem="Vso-AS-5Mf" firstAttribute="top" secondItem="JOS-7K-ga4" secondAttribute="top" id="X9p-P4-SXH"/>
                             <constraint firstItem="JOS-7K-ga4" firstAttribute="top" secondItem="Wy6-0Z-elh" secondAttribute="top" constant="4" id="XDf-Jc-XLs"/>
                             <constraint firstItem="pCx-1u-tE7" firstAttribute="leading" secondItem="yTn-BC-qmG" secondAttribute="trailing" constant="20" id="Z7a-pR-GWK"/>
                             <constraint firstItem="Vso-AS-5Mf" firstAttribute="baseline" secondItem="AvI-C2-wKE" secondAttribute="baseline" id="fcv-KD-qhX"/>
-                            <constraint firstAttribute="trailing" secondItem="pCx-1u-tE7" secondAttribute="trailing" constant="73" id="hg1-fX-CjK"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JOS-7K-ga4" secondAttribute="trailing" constant="8" id="oqz-ou-69n"/>
                             <constraint firstAttribute="bottom" secondItem="JOS-7K-ga4" secondAttribute="bottom" constant="4" id="tfi-jk-PZh"/>
                             <constraint firstItem="yTn-BC-qmG" firstAttribute="baseline" secondItem="pCx-1u-tE7" secondAttribute="baseline" id="x7m-3Z-V9B"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pCx-1u-tE7" secondAttribute="trailing" constant="20" id="zcC-co-GCv"/>
                         </constraints>
                     </view>
                     <connections>
