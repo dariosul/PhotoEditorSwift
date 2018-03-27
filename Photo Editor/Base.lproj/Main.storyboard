@@ -1403,6 +1403,7 @@ Gw
                         <outlet property="effectSelectionPopUp" destination="VyG-gL-HQc" id="tGR-er-Yx2"/>
                         <outlet property="mBrushWidth" destination="pCx-1u-tE7" id="go3-zU-BDs"/>
                         <outlet property="mExposureSlider" destination="AvI-C2-wKE" id="ml6-B5-0wx"/>
+                        <outlet property="mShowMask" destination="uPM-E2-DjH" id="KJV-OC-vaX"/>
                         <outlet property="onExposureSlider" destination="AvI-C2-wKE" id="1aM-kr-1ma"/>
                     </connections>
                 </viewController>

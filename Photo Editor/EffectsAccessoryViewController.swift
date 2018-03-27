@@ -17,7 +17,9 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     
     @IBOutlet weak var mBrushWidth: NSSlider!
     
-    var mShowMask = false
+    //var mShowMask = false
+    
+    @IBOutlet weak var mShowMask: NSButton!
     
     let filterEffects = Effects()
     var photoController: PhotoController?
@@ -73,7 +75,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
             // brush min - max values are percentages of image dimentions
             let brushDiameter = Float(max (image.size.width, image.size.height)) * mBrushWidth.floatValue / 100
             
-            if (mShowMask){
+            if (mShowMask.state == NSOnState){
                 // draw the radial gradient mask instead of image
                 let gradientFilter = CIFilter(name: "CIRadialGradient",
                                               withInputParameters: [
