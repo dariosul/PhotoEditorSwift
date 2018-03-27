@@ -195,8 +195,6 @@ protocol MouseDraw: class {
 protocol CanvasImageViewDelegate {
     func canvasImageView(_ canvasImageView: CanvasImageView, didChangeImage image: NSImage?)
     func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode
-    // these will receive notification about points on mouse draw
-    //var mouseDrawSubscribers: NSHashTable<AnyObject> {get set}
     
     func getMouseDrawSubscribers() -> NSHashTable<AnyObject>
     
@@ -213,8 +211,4 @@ extension CanvasImageViewDelegate {
     func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode {
         return CanvasImageView.EditMode.move
     }
-//    var mouseDrawSubscribers: NSHashTable<AnyObject>{
-//        get { return mouseDrawSubscribers }
-//        set(_other) { mouseDrawSubscribers = _other}
-//    }
 }
