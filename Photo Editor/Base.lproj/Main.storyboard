@@ -1372,8 +1372,8 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uPM-E2-DjH">
-                                <rect key="frame" x="508" y="4" width="61" height="18"/>
-                                <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="872-Tc-ZAp">
+                                <rect key="frame" x="508" y="4" width="91" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show Mask" bezelStyle="regularSquare" imagePosition="left" inset="2" id="872-Tc-ZAp">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1393,9 +1393,9 @@ Gw
                             <constraint firstItem="uPM-E2-DjH" firstAttribute="leading" secondItem="pCx-1u-tE7" secondAttribute="trailing" constant="8" id="Yaj-H3-sDk"/>
                             <constraint firstItem="uPM-E2-DjH" firstAttribute="centerY" secondItem="Wy6-0Z-elh" secondAttribute="centerY" id="dOP-fO-Zt5"/>
                             <constraint firstItem="Vso-AS-5Mf" firstAttribute="baseline" secondItem="AvI-C2-wKE" secondAttribute="baseline" id="fcv-KD-qhX"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uPM-E2-DjH" secondAttribute="trailing" constant="20" id="g8S-3r-IYV"/>
                             <constraint firstAttribute="bottom" secondItem="JOS-7K-ga4" secondAttribute="bottom" constant="4" id="tfi-jk-PZh"/>
                             <constraint firstItem="yTn-BC-qmG" firstAttribute="baseline" secondItem="pCx-1u-tE7" secondAttribute="baseline" id="x7m-3Z-V9B"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pCx-1u-tE7" secondAttribute="trailing" constant="20" id="zcC-co-GCv"/>
                         </constraints>
                     </view>
                     <connections>
