@@ -37,10 +37,12 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     }
     
     @IBAction func onItemChanged(_ sender: NSPopUpButton) {
-        if  effectSelectionPopUp.selectedItem!.title == EffectsList.exposure.displayName {
+        switch EffectsList.allEffects[effectSelectionPopUp.selectedTag()] {
+        case EffectsList.exposure:
             mExposureSlider.isEnabled = true
             runExposurePreview()
-        } else{
+            
+        default:
             mExposureSlider.isEnabled = false
             // discard exposure preview
             photoController?.setPhotoImage(photoController?.photo.cachedImage)
@@ -71,7 +73,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     }
     
     func runMaskedBlur(blurCenter: CGPoint){
-        if let image = photoController?.photo.image {
+        if let image = photoController?.photo.cachedImage {
             // brush min - max values are percentages of image dimentions
             let brushDiameter = Float(max (image.size.width, image.size.height)) * mBrushWidth.floatValue / 100
             
@@ -98,7 +100,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let imageRep = NSCIImageRep(ciImage: outCIImage)
                 result.addRepresentation(imageRep)
                 
-                photoController?.setCommitPhotoImage(result)
+                photoController?.setPhotoImage(result)
                 
             }else{
                 let gradientImage = CIFilter(name: "CIRadialGradient",
