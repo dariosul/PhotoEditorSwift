@@ -21,6 +21,8 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     
     @IBOutlet weak var mShowMask: NSButton!
     
+  //  var mCIContext: CIContext?  = CIContext.init()//(options: [kCIContextUseSoftwareRenderer: "NO"])
+    
     let filterEffects = Effects()
     var photoController: PhotoController?
     
@@ -34,6 +36,9 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
         }
         
         mExposureSlider.isEnabled = false
+//        if mCIContext != nil{
+//            //let maxImageSize = mCIContext!.inputImageMaximumSize()
+//        }
     }
     
     @IBAction func onItemChanged(_ sender: NSPopUpButton) {
@@ -82,23 +87,24 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let gradientFilter = CIFilter(name: "CIRadialGradient",
                                               withInputParameters: [
                                                 kCIInputCenterKey: CIVector(x: blurCenter.x, y: blurCenter.y),
-                                                "inputRadius0": 5,
-                                                "inputRadius1": brushDiameter/2,
-                                                "inputColor1": CIColor(red: 0, green: 0, blue: 0),
-                                                "inputColor0": CIColor(red: 1, green: 0, blue: 0)])!
+                                                "inputRadius0": max(5 , brushDiameter/16),
+                                                "inputRadius1": brushDiameter/2, //  this will be nib width and feathering
+                                                "inputColor0": CIColor(red: 1, green: 0, blue: 0, alpha: 0.7),
+                                                "inputColor1": CIColor(red: 0, green: 0, blue: 0)])!
                 
-                let outCIImage = gradientFilter.outputImage!
+                guard let outCIImage = gradientFilter.outputImage else {return}
                 
-                let result = NSImage(size: image.size)
+                let result = image.copy() as! NSImage//NSImage(size: image.size)
                 
-                result.lockFocus()
+                //result.lockFocus()
                 result.lockFocusFlipped(true)
                 
                 outCIImage.draw(at: NSZeroPoint, from: NSMakeRect(0, 0, image.size.width, image.size.height), operation: NSCompositingOperation.destinationAtop, fraction: 1.0)
-                result.unlockFocus()
                 
                 let imageRep = NSCIImageRep(ciImage: outCIImage)
                 result.addRepresentation(imageRep)
+                
+                result.unlockFocus()
                 
                 photoController?.setPhotoImage(result)
                 
@@ -106,10 +112,10 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let gradientImage = CIFilter(name: "CIRadialGradient",
                                              withInputParameters: [
                                                 kCIInputCenterKey: CIVector(x: blurCenter.x, y: blurCenter.y),//CIVector(x: image.size.width/2, y: image.size.height/2),
-                                                "inputRadius0": 5, "inputRadius1": brushDiameter,
-                                                "inputColor1": CIColor(red: 0, green: 0, blue: 0),
-                                                "inputColor0": CIColor(red: 1, green: 1, blue: 1)
-                    ])?.outputImage
+                                                "inputRadius0": max(5 , brushDiameter/16),
+                                                "inputRadius1": brushDiameter/2, //  this will be nib width and feathering
+                                                "inputColor0": CIColor(red: 1, green: 1, blue: 1),
+                                                "inputColor1": CIColor(red: 0, green: 0, blue: 0)])?.outputImage
 
 //                guard let inputMask = CIFilter(name: "CIStripesGenerator", withInputParameters: ["inputColor0" : NSColor.white, "inputColor1" : NSColor.black])!.outputImage
 //                    else{
@@ -121,6 +127,9 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let filter = CIFilter(name: "CIMaskedVariableBlur", withInputParameters: maskedVariableBlurParams)!;
 
                 let outputImage = filter.outputImage!
+                
+                //var uiImage: UIImage?
+                
                 let result = NSImage(size: image.size)
                 let imageRep = NSCIImageRep(ciImage: outputImage)
                 result.addRepresentation(imageRep)
