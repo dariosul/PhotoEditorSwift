@@ -87,7 +87,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let gradientFilter = CIFilter(name: "CIRadialGradient",
                                               withInputParameters: [
                                                 kCIInputCenterKey: CIVector(x: blurCenter.x, y: blurCenter.y),
-                                                "inputRadius0": max(5 , brushDiameter/16),
+                                                "inputRadius0": brushDiameter/2 - 1.0,//max(5 , brushDiameter/16),
                                                 "inputRadius1": brushDiameter/2, //  this will be nib width and feathering
                                                 "inputColor0": CIColor(red: 1, green: 0, blue: 0, alpha: 0.7),
                                                 "inputColor1": CIColor(red: 0, green: 0, blue: 0, alpha: 0)])!
@@ -126,7 +126,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let gradientImage = CIFilter(name: "CIRadialGradient",
                                              withInputParameters: [
                                                 kCIInputCenterKey: CIVector(x: blurCenter.x, y: blurCenter.y),//CIVector(x: image.size.width/2, y: image.size.height/2),
-                                                "inputRadius0": max(5 , brushDiameter/16),
+                                                "inputRadius0": brushDiameter/2 - 1.0, //max(5 , brushDiameter/16),
                                                 "inputRadius1": brushDiameter/2, //  this will be nib width and feathering
                                                 "inputColor0": CIColor(red: 1, green: 1, blue: 1),
                                                 "inputColor1": CIColor(red: 0, green: 0, blue: 0)])?.outputImage
