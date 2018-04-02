@@ -78,9 +78,9 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     }
     
     func runMaskedBlur(blurCenter: CGPoint){
-        if let image = photoController?.photo.cachedImage {
+        if let baseImage = photoController?.photo.cachedImage {
             // brush min - max values are percentages of image dimentions
-            let brushDiameter = Float(max (image.size.width, image.size.height)) * mBrushWidth.floatValue / 100
+            let brushDiameter = Float(max (baseImage.size.width, baseImage.size.height)) * mBrushWidth.floatValue / 100
             
             if (mShowMask.state == NSOnState){
                 // draw the radial gradient mask instead of image
@@ -90,21 +90,35 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                                                 "inputRadius0": max(5 , brushDiameter/16),
                                                 "inputRadius1": brushDiameter/2, //  this will be nib width and feathering
                                                 "inputColor0": CIColor(red: 1, green: 0, blue: 0, alpha: 0.7),
-                                                "inputColor1": CIColor(red: 0, green: 0, blue: 0)])!
+                                                "inputColor1": CIColor(red: 0, green: 0, blue: 0, alpha: 0)])!
+//                                                "inputColor0": CIColor(red: 1, green: 1, blue: 1, alpha: 0),
+//                                                "inputColor1": CIColor(red: 1, green: 0, blue: 0, alpha: 1)])!
                 
-                guard let outCIImage = gradientFilter.outputImage else {return}
+                guard let outCIImage = gradientFilter.outputImage else {
+                    return
+                }
                 
-                let result = image.copy() as! NSImage//NSImage(size: image.size)
-                
-                //result.lockFocus()
-                result.lockFocusFlipped(true)
-                
-                outCIImage.draw(at: NSZeroPoint, from: NSMakeRect(0, 0, image.size.width, image.size.height), operation: NSCompositingOperation.destinationAtop, fraction: 1.0)
-                
-                let imageRep = NSCIImageRep(ciImage: outCIImage)
+                let imageData = baseImage.tiffRepresentation!
+                let baseCIImage = CIImage(data: imageData)!
+
+                let blendCI = CIFilter(name:"CISourceOverCompositing", withInputParameters:["inputImage":outCIImage, "inputBackgroundImage": baseCIImage])!
+                let blendCIImage = blendCI.outputImage!
+
+                let result = NSImage(size: baseImage.size)
+                let imageRep = NSCIImageRep(ciImage: blendCIImage)
                 result.addRepresentation(imageRep)
                 
-                result.unlockFocus()
+//                let result = baseImage.copy() as! NSImage//NSImage(size: image.size)
+//
+//                result.lockFocus()
+//                result.lockFocusFlipped(true)
+//
+//                outCIImage.draw(at: NSZeroPoint, from: NSMakeRect(0, 0, baseImage.size.width, baseImage.size.height), operation: NSCompositingOperation.destinationAtop, fraction: 1.0)
+//
+//                let imageRep = NSCIImageRep(ciImage: outCIImage)
+//                result.addRepresentation(imageRep)
+//
+//                result.unlockFocus()
                 
                 photoController?.setPhotoImage(result)
                 
@@ -121,7 +135,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
 //                    else{
 //                        return
 //                }
-                let sourceImage = CIImage(data: image.tiffRepresentation!)
+                let sourceImage = CIImage(data: baseImage.tiffRepresentation!)
                 let maskedVariableBlurParams : [String : AnyObject] = [kCIInputImageKey: sourceImage!, "inputRadius": 10.0 as AnyObject, "inputMask" : gradientImage!]
 
                 let filter = CIFilter(name: "CIMaskedVariableBlur", withInputParameters: maskedVariableBlurParams)!;
@@ -130,7 +144,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 
                 //var uiImage: UIImage?
                 
-                let result = NSImage(size: image.size)
+                let result = NSImage(size: baseImage.size)
                 let imageRep = NSCIImageRep(ciImage: outputImage)
                 result.addRepresentation(imageRep)
 
