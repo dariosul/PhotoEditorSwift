@@ -87,12 +87,10 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let gradientFilter = CIFilter(name: "CIRadialGradient",
                                               withInputParameters: [
                                                 kCIInputCenterKey: CIVector(x: blurCenter.x, y: blurCenter.y),
-                                                "inputRadius0": brushDiameter/2 - 1.0,//max(5 , brushDiameter/16),
-                                                "inputRadius1": brushDiameter/2, //  this will be nib width and feathering
+                                                "inputRadius0": brushDiameter/2 - 1.0,
+                                                "inputRadius1": brushDiameter/2, //  this will be nib width and feathering, no feathering now
                                                 "inputColor0": CIColor(red: 1, green: 0, blue: 0, alpha: 0.7),
                                                 "inputColor1": CIColor(red: 0, green: 0, blue: 0, alpha: 0)])!
-//                                                "inputColor0": CIColor(red: 1, green: 1, blue: 1, alpha: 0),
-//                                                "inputColor1": CIColor(red: 1, green: 0, blue: 0, alpha: 1)])!
                 
                 guard let outCIImage = gradientFilter.outputImage else {
                     return
@@ -104,21 +102,10 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let blendCI = CIFilter(name:"CISourceOverCompositing", withInputParameters:["inputImage":outCIImage, "inputBackgroundImage": baseCIImage])!
                 let blendCIImage = blendCI.outputImage!
 
+                // convert the
                 let result = NSImage(size: baseImage.size)
                 let imageRep = NSCIImageRep(ciImage: blendCIImage)
                 result.addRepresentation(imageRep)
-                
-//                let result = baseImage.copy() as! NSImage//NSImage(size: image.size)
-//
-//                result.lockFocus()
-//                result.lockFocusFlipped(true)
-//
-//                outCIImage.draw(at: NSZeroPoint, from: NSMakeRect(0, 0, baseImage.size.width, baseImage.size.height), operation: NSCompositingOperation.destinationAtop, fraction: 1.0)
-//
-//                let imageRep = NSCIImageRep(ciImage: outCIImage)
-//                result.addRepresentation(imageRep)
-//
-//                result.unlockFocus()
                 
                 photoController?.setPhotoImage(result)
                 
@@ -126,23 +113,17 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
                 let gradientImage = CIFilter(name: "CIRadialGradient",
                                              withInputParameters: [
                                                 kCIInputCenterKey: CIVector(x: blurCenter.x, y: blurCenter.y),//CIVector(x: image.size.width/2, y: image.size.height/2),
-                                                "inputRadius0": brushDiameter/2 - 1.0, //max(5 , brushDiameter/16),
-                                                "inputRadius1": brushDiameter/2, //  this will be nib width and feathering
+                                                "inputRadius0": brushDiameter/2 - 1.0,
+                                                "inputRadius1": brushDiameter/2, //  this will be nib width and feathering, no feathering now
                                                 "inputColor0": CIColor(red: 1, green: 1, blue: 1),
                                                 "inputColor1": CIColor(red: 0, green: 0, blue: 0)])?.outputImage
 
-//                guard let inputMask = CIFilter(name: "CIStripesGenerator", withInputParameters: ["inputColor0" : NSColor.white, "inputColor1" : NSColor.black])!.outputImage
-//                    else{
-//                        return
-//                }
                 let sourceImage = CIImage(data: baseImage.tiffRepresentation!)
                 let maskedVariableBlurParams : [String : AnyObject] = [kCIInputImageKey: sourceImage!, "inputRadius": 10.0 as AnyObject, "inputMask" : gradientImage!]
 
                 let filter = CIFilter(name: "CIMaskedVariableBlur", withInputParameters: maskedVariableBlurParams)!;
 
                 let outputImage = filter.outputImage!
-                
-                //var uiImage: UIImage?
                 
                 let result = NSImage(size: baseImage.size)
                 let imageRep = NSCIImageRep(ciImage: outputImage)

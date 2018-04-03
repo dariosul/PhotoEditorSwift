@@ -8,6 +8,7 @@
 
 import Cocoa
 import CoreImage
+//import CustomFilter
 
 enum EffectsList {
     case blur
@@ -55,15 +56,15 @@ enum EffectsList {
 
 class Effects {
     
-    var mBlur: CIFilter? = nil
-    var mInvertColors: CIFilter? = nil
-    var mEffectMonoChrome: CIFilter? = nil
-    var mExposure: CIFilter? = nil
+    var mBlur: CIFilterWithMask? = nil
+    var mInvertColors: CIFilterWithMask? = nil
+    var mEffectMonoChrome: CIFilterWithMask? = nil
+    var mExposure: CIFilterWithMask? = nil
     
-    func getExposure(params filterParams: Any? = nil)-> CIFilter{
+    func getExposure(params filterParams: Any? = nil)-> CIFilterWithMask{
         if (mExposure == nil)
         {
-            mExposure = CIFilter(name: EffectsList.exposure.filterName)
+            mExposure = CIFilterWithMask(name: EffectsList.exposure.filterName)
             mExposure?.setDefaults()
         }
         setExposure(filterParams)
@@ -76,7 +77,7 @@ class Effects {
         }
     }
 
-    func getFilter(_ effectType: EffectsList, params filterParams: Any? = nil)-> CIFilter{        
+    func getFilter(_ effectType: EffectsList, params filterParams: Any? = nil)-> CIFilterWithMask{
         switch effectType{
         case EffectsList.exposure:
             return getExposure(params: filterParams)
@@ -91,7 +92,7 @@ class Effects {
 //            return mEffectMonoChrome!
             
         default:
-           let filter = CIFilter(name: effectType.filterName)
+           let filter = CIFilterWithMask(name: effectType.filterName)
             filter?.setDefaults()
             return filter!
         }
