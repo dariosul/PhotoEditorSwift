@@ -40,24 +40,38 @@ extension BrushStroke{
     }
 }
 
-class CIFilterWithMask: CIFilter {
-    var filterParams: Dictionary<String, AnyObject>? = nil
+public class CIFilterWithMask: CIFilter {
+    var inputCusomFilterParams: Dictionary<String, AnyObject>? = nil
     var brushStrokes: Array<BrushStroke> = Array<BrushStroke>()
-    var maskImage: CIImage? = nil
+    var maskImage: CIImage? = nil // can have public access to request just the mask
+    //internal var mFilter: CIFilter? = nil //filter object of a certain type but no mask applied
+    //var inputImage: CIImage? = nil
     
+    override public var outputImage: CIImage? {
+        get{
+            return super.outputImage
+        }                // run filter recipie with new mask
+    }
+    
+    init?(name filterName: String){
+        super.init()
+        name = filterName
+        setDefaults()
+        //mFilter = CIFilter(name: filterName)
+        //super.init(name: filterName) /// this needs to be a disignated initialiser
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
     var lastBrushPoints: BrushStroke = BrushStroke() { // turn this into optional
         didSet{
             if lastBrushPoints != oldValue {
                 // updateMask
-                // run filter recipie with new mask
-
             }
         }
     }
-    func init(name: String)->CIFilterWithMask?{
-    return CIFilter(name: name)
-    }
-//    override var outputImage: CIImage! {
-//        
-//    }
+
 }
+
