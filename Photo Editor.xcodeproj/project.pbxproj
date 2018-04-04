@@ -28,6 +28,7 @@
 		1FC619F71CEEBB88001E2DDF /* CanvasClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC619F61CEEBB88001E2DDF /* CanvasClipView.swift */; };
 		9D5093781D09E0720013A565 /* SidebarClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5093771D09E0720013A565 /* SidebarClipView.swift */; };
 		9DFBA0941CFE3ED30085F6AF /* WindowDraggableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBA0931CFE3ED30085F6AF /* WindowDraggableButton.swift */; };
+		FBF5CA972074436A0056479D /* CustomFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF5CA962074436A0056479D /* CustomFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		9D5093771D09E0720013A565 /* SidebarClipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarClipView.swift; sourceTree = "<group>"; };
 		9DFBA0931CFE3ED30085F6AF /* WindowDraggableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowDraggableButton.swift; sourceTree = "<group>"; };
 		B5A5C7ED1D1AB0B70098FB0C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		FBF5CA962074436A0056479D /* CustomFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 		1F6CE7111D0A741200B3781E /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				FBF5CA962074436A0056479D /* CustomFilter.swift */,
 				1F6CE70F1D0A740900B3781E /* Effects.swift */,
 				1F6CE7121D0A76EE00B3781E /* EffectsAccessoryViewController.swift */,
 			);
@@ -262,6 +265,7 @@
 				1F13B4C31CEE5E5400E22C3F /* CanvasView.swift in Sources */,
 				1F6CE7131D0A76EE00B3781E /* EffectsAccessoryViewController.swift in Sources */,
 				9D5093781D09E0720013A565 /* SidebarClipView.swift in Sources */,
+				FBF5CA972074436A0056479D /* CustomFilter.swift in Sources */,
 				1F67B9E31CF44A5B007F379C /* PhotoSplitViewController.swift in Sources */,
 				1F8309371CF3D92200025B46 /* PhotoController.swift in Sources */,
 				1F6CE7101D0A740900B3781E /* Effects.swift in Sources */,
