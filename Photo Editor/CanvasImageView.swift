@@ -9,7 +9,6 @@
 
 import Cocoa
 
-
 class CanvasImageView: NSView {
     
     // PhotoDocumentWindowController also has an EditMode, but this view only supports two styles of editing: moving and drawing.
@@ -26,8 +25,18 @@ class CanvasImageView: NSView {
             }
         }
     }
+    // these will receive notification about points on mouse draw
+//    private let mouseDrawSubscribers = NSHashTable<AnyObject>.weakObjects()
     
     var delegate: CanvasImageViewDelegate?
+    
+//    func addSubscriber(_ subscriber: MouseDraw) {
+//        mouseDrawSubscribers.add(subscriber)
+//    }
+    
+//    func removeSubscriber(_ subscriber: MouseDraw) {
+//        mouseDrawSubscribers.remove(subscriber)
+//    }
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -82,7 +91,9 @@ class CanvasImageView: NSView {
     override func mouseDown(with event: NSEvent) {
         switch getEditMode() {
             case .move:
-                trackForMove(event: event)
+                trackForFilters(event: event)
+                //trackForMove(event: event)
+                //fallthrough
             
             case .draw:
                 trackForDraw(event: event)
@@ -109,6 +120,30 @@ class CanvasImageView: NSView {
         }
     }
     
+    // Record the points when the mouse moves
+    private func trackForFilters(event mouseDownEvent: NSEvent) {
+        
+        let window = self.window!
+        let startingPoint = self.convert(mouseDownEvent.locationInWindow, from: nil)
+        var points = [startingPoint]
+        
+        window.trackEvents(matching: [.leftMouseDragged, .leftMouseUp], timeout:NSEventDurationForever, mode: .defaultRunLoopMode) { event, stop in
+            
+            let currentPoint = self.convert(event.locationInWindow, from: nil)
+            points.append(currentPoint)
+            
+            if event.type == .leftMouseUp {
+                stop.pointee = true
+            }
+        }
+        
+        // send the update to subscriber
+        for object in delegate!.getMouseDrawSubscribers().objectEnumerator(){
+            guard let subscriber = object as? MouseDraw else {continue}
+            subscriber.updateBrushPoints(mousePoints: points)
+        }
+    }
+    
     // "draw" on the image
     private func trackForDraw(event mouseDownEvent: NSEvent) {
         // Draw on a copy of the image
@@ -118,6 +153,7 @@ class CanvasImageView: NSView {
         var lastPoint = convert(mouseDownEvent.locationInWindow, from: nil)
         
         window.trackEvents(matching: [.leftMouseDragged, .leftMouseUp], timeout:NSEventDurationForever, mode: .defaultRunLoopMode) { event, stop in
+            
             let currentPoint = self.convert(event.locationInWindow, from: nil)
             
             image.lockFocusFlipped(true)
@@ -147,13 +183,24 @@ class CanvasImageView: NSView {
         // Tell the delegate the image changed only once at the end of the mouse tracking
         sendImageChanged()
     }
-    
 }
+
+
+protocol MouseDraw: class {
+    func updateBrushPoints(mousePoints points: [CGPoint])->Void
+}
+
 
 // We don't want to tie our implementation to any specific controller, and instead use delegation via a protocol
 protocol CanvasImageViewDelegate {
     func canvasImageView(_ canvasImageView: CanvasImageView, didChangeImage image: NSImage?)
     func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode
+    
+    func getMouseDrawSubscribers() -> NSHashTable<AnyObject>
+    
+    func addSubscriber(_ subscriber: MouseDraw)
+    
+    func removeSubscriber(_ subscriber: MouseDraw)
 }
 
 

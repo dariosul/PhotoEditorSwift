@@ -44,6 +44,11 @@ class PhotoController: NSObject {
         forEachSubscriber { $0.photo(photo, didChangeImage: photo.image, from: oldImage) }
     }
     
+    func setCommitPhotoImage(_ photoImage: NSImage?) {
+        photo.cachedImage = photoImage
+        setPhotoImage(photoImage)
+    }
+    
     func setPhotoTitle(_ title: String) {
         photo.title = title
         forEachSubscriber { $0.photo(photo, didChangeTitle: title) }

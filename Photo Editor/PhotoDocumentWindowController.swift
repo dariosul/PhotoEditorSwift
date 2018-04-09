@@ -9,7 +9,7 @@
 
 import Cocoa
 
-class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
+class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, MouseDraw {
     
     enum EditMode: Int {
         case move
@@ -85,6 +85,8 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
         if let token = appearanceObservationToken {
             NotificationCenter.default.removeObserver(token)
         }
+        
+        splitViewController.canvasController.removeSubscriber(self)
     }
     
     override func windowDidLoad() {
@@ -126,6 +128,8 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
         modeSelectionControl.image(forSegment: 0)?.accessibilityDescription = NSLocalizedString("Move", comment: "Label for the 'move' mode")
         modeSelectionControl.image(forSegment: 1)?.accessibilityDescription = NSLocalizedString("Draw", comment: "Label for the 'draw' mode")
         modeSelectionControl.image(forSegment: 2)?.accessibilityDescription = NSLocalizedString("Effects", comment: "Label for the 'effects' mode")
+        
+        splitViewController.canvasController.addSubscriber(self)
     }
     
     // State restoration example: Save and restore the edit mode property
@@ -150,6 +154,9 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
         }
     }
     
+    func updateBrushPoints(mousePoints points: [CGPoint]) {
+        effectsAccessoryViewController.addBrushPoints(mousePoints: points)
+    }
 }
 
 //MARK: UI Actions
