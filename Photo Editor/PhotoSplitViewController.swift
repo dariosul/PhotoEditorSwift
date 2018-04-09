@@ -17,8 +17,8 @@ class PhotoSplitViewController: NSSplitViewController {
         return childViewControllers.lazy.filter { $0 is SidebarViewController }.first as? SidebarViewController
     }
     
-    var canvasController: CanvasViewController! {
-        return childViewControllers.lazy.filter { $0 is CanvasViewController }.first as? CanvasViewController
+    var editSplitViewController: EditSplitViewController! {
+        return childViewControllers.lazy.filter { $0 is EditSplitViewController }.first as? EditSplitViewController
     }
     
 }

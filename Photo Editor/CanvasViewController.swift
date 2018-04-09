@@ -115,18 +115,18 @@ extension CanvasViewController: CanvasImageViewDelegate {
         photoController?.setPhotoImage(image)
     }
     
-    func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode {
-        // Translate the WindowController's edit mode to the CanvasImageView's edit mode. This ties the controllers together, but it is much better than having the view access the property
-        guard let windowController = view.window?.windowController as? PhotoDocumentWindowController else { return .move }
-
-        switch windowController.editMode {
-            case .move, .effects:
-                // Effects still allows moving the image
-                return .move
-            case .draw:
-                return .draw
-        }
-    }
+//    func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode {
+//        // Translate the WindowController's edit mode to the CanvasImageView's edit mode. This ties the controllers together, but it is much better than having the view access the property
+//        guard let windowController = view.window?.windowController as? PhotoDocumentWindowController else { return .move }
+//
+//        switch windowController.editMode {
+//            case .move, .effects:
+//                // Effects still allows moving the image
+//                return .move
+//            case .draw:
+//                return .draw
+//        }
+//    }
     
     func getMouseDrawSubscribers() -> NSHashTable<AnyObject> {
          return mouseDrawSubscribers

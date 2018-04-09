@@ -12,10 +12,10 @@ import Cocoa
 class CanvasImageView: NSView {
     
     // PhotoDocumentWindowController also has an EditMode, but this view only supports two styles of editing: moving and drawing.
-    enum EditMode: Int {
-        case move
-        case draw
-    }
+//    enum EditMode: Int {
+//        case move
+//        case draw
+//    }
     
     var image: NSImage? {
         didSet(oldImage) {
@@ -74,13 +74,13 @@ class CanvasImageView: NSView {
         
     }
     
-    private func getEditMode() -> EditMode {
-        if let delegate = delegate {
-            return delegate.getEditMode(in: self)
-        } else {
-            return .move
-        }
-    }
+//    private func getEditMode() -> EditMode {
+//        if let delegate = delegate {
+//            return delegate.getEditMode(in: self)
+//        } else {
+//            return .move
+//        }
+//    }
     
     private func sendImageChanged() {
         if let delegate = delegate {
@@ -89,15 +89,44 @@ class CanvasImageView: NSView {
     }
     
     override func mouseDown(with event: NSEvent) {
-        switch getEditMode() {
-            case .move:
-                trackForFilters(event: event)
+//        switch getEditMode() {
+//            case .move:
+            mouseDragged(with: event)
+//                trackForFilters(event: event)
                 //trackForMove(event: event)
                 //fallthrough
             
-            case .draw:
-                trackForDraw(event: event)
-        }
+//            case .draw:
+//                trackForDraw(event: event)
+//        }
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        
+//        {
+//            CIFilter *brushFilter = self.brushFilter;
+//
+//            NSPoint  loc = [self convertPoint:[event locationInWindow] fromView:nil];
+//            [brushFilter setValue:@(self.brushSize) forKey:@"inputRadius1"];
+//
+//            CIColor *cicolor = [[CIColor alloc] initWithColor:self.color];
+//            [brushFilter setValue:cicolor forKey:@"inputColor0"];
+//
+//            CIVector *inputCenter = [CIVector vectorWithX:loc.x Y:loc.y];
+//            [brushFilter setValue:inputCenter forKey:@"inputCenter"];
+//
+//
+//            CIFilter *compositeFilter = self.compositeFilter;
+//
+//            [compositeFilter setValue:[brushFilter valueForKey:@"outputImage"] forKey:@"inputImage"];
+//            [compositeFilter setValue:[self.imageAccumulator image] forKey:@"inputBackgroundImage"];
+//
+//            CGFloat brushSize = self.brushSize;
+//            CGRect rect = CGRectMake(loc.x-brushSize, loc.y-brushSize, 2.0*brushSize, 2.0*brushSize);
+//
+//            [self.imageAccumulator setImage:[compositeFilter valueForKey:@"outputImage"] dirtyRect:rect];
+//            [self setImage:[self.imageAccumulator image] dirtyRect:rect];
+//        }
     }
     
     // Move the scrollview when the mouse moves
@@ -194,7 +223,7 @@ protocol MouseDraw: class {
 // We don't want to tie our implementation to any specific controller, and instead use delegation via a protocol
 protocol CanvasImageViewDelegate {
     func canvasImageView(_ canvasImageView: CanvasImageView, didChangeImage image: NSImage?)
-    func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode
+//    func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode
     
     func getMouseDrawSubscribers() -> NSHashTable<AnyObject>
     
@@ -208,7 +237,7 @@ protocol CanvasImageViewDelegate {
 extension CanvasImageViewDelegate {
     func canvasImageView(_ canvasImageView: CanvasImageView, didChange image: NSImage?) {
     }
-    func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode {
-        return CanvasImageView.EditMode.move
-    }
+//    func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode {
+//        return CanvasImageView.EditMode.move
+//    }
 }

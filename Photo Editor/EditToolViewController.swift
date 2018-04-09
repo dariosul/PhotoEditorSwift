@@ -1,23 +1,19 @@
-/*
- Copyright (C) 2016 Apple Inc. All Rights Reserved.
- See LICENSE.txt for this sample’s licensing information
- 
- Abstract:
- Manages the UI for selecting and previewing effects and creates a new image when the button is clicked.
- */
+//
+//  EditToolViewController.swift
+//  Photo Editor
+//
+//  Created by cli mini on 2018-04-09.
+//  Copyright © 2018 Apple Inc. All rights reserved.
+//
 
 import Cocoa
 
-class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoControllerConsumer {
-    
+class EditToolViewController: NSViewController, PhotoControllerConsumer {
     @IBOutlet weak var effectSelectionPopUp: NSPopUpButton!
     @IBOutlet weak var applyFilterButton: NSButton!
     
     @IBOutlet weak var mExposureSlider: NSSlider!
-    
     @IBOutlet weak var mBrushWidth: NSSlider!
-    
-    //var mShowMask = false
     
     @IBOutlet weak var mShowMask: NSButton!
     
@@ -111,23 +107,23 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
         
         let result = NSImage(size: baseImage.size)
         let sourceImage = CIImage(data: baseImage.tiffRepresentation!)
-            
+        
         if (mShowMask.state == NSOnState){
             
             let blendCI = CIFilter(name:"CISourceOverCompositing", withInputParameters:["inputImage": maskImage!, "inputBackgroundImage": sourceImage! ])!
             let blendCIImage = blendCI.outputImage!
-
+            
             let imageRep = NSCIImageRep(ciImage: blendCIImage)
             result.addRepresentation(imageRep)
             photoController?.setPhotoImage(result)
             
         }else{
             let maskedVariableBlurParams : [String : AnyObject] = [kCIInputImageKey: sourceImage!, "inputRadius": 10.0 as AnyObject, "inputMask" : maskImage!]
-
+            
             let filter = CIFilter(name: "CIMaskedVariableBlur", withInputParameters: maskedVariableBlurParams)!;
-
+            
             let outputImage = filter.outputImage!
-
+            
             let imageRep = NSCIImageRep(ciImage: outputImage)
             result.addRepresentation(imageRep)
             photoController?.setCommitPhotoImage(result)
@@ -139,15 +135,15 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
     }
     
     @IBAction func btnApplyClicked(_ sender: NSButton) {
-            if EffectsList.allEffects[effectSelectionPopUp.selectedTag()] == EffectsList.blur{
-                //runMaskedBlur()
-            }else{
-                // this is an image you see on the screen
-                if let image = photoController?.photo.image {
-                    let filter = filterEffects.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
-
-                    let newImage = imageByApplying(filter, to: image)
-                    photoController?.setCommitPhotoImage(newImage)
+        if EffectsList.allEffects[effectSelectionPopUp.selectedTag()] == EffectsList.blur{
+            //runMaskedBlur()
+        }else{
+            // this is an image you see on the screen
+            if let image = photoController?.photo.image {
+                let filter = filterEffects.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
+                
+                let newImage = imageByApplying(filter, to: image)
+                photoController?.setCommitPhotoImage(newImage)
             }
         }
     }
@@ -156,7 +152,7 @@ class EffectsAccessoryViewController: NSTitlebarAccessoryViewController, PhotoCo
         if EffectsList.allEffects[effectSelectionPopUp.selectedTag()] == EffectsList.blur{
             runMaskedBlur(mousePoints: points)
         }
-    
+        
     }
-
+    
 }

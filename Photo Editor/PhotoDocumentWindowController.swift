@@ -11,11 +11,11 @@ import Cocoa
 
 class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, MouseDraw {
     
-    enum EditMode: Int {
-        case move
-        case draw
-        case effects
-    }
+//    enum EditMode: Int {
+//        case move
+//        case draw
+//        case effects
+//    }
     
     enum ZoomSegment: Int {
         case zoomOut
@@ -26,8 +26,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
     @IBOutlet weak var modeSelectionControl: NSSegmentedControl!
     
     var splitViewController: PhotoSplitViewController! { return contentViewController as? PhotoSplitViewController }
-    private var drawAccessoryViewController: NSTitlebarAccessoryViewController!
-    private var effectsAccessoryViewController: EffectsAccessoryViewController!
+//    private var effectsAccessoryViewController: EffectsAccessoryViewController!
     
     var photoController: PhotoController? {
         willSet {
@@ -49,7 +48,8 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
             propagateToChildren(of: contentViewController!)
             
             // Push to our titlebar accessory view controllers
-            effectsAccessoryViewController.photoController = photoController
+            splitViewController.editSplitViewController.editToolViewController.photoController = photoController
+//            effectsAccessoryViewController.photoController = photoController
             
             // Subscribe to photo changes
             photoController?.addSubscriber(self)
@@ -66,16 +66,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
         }
     }
     
-    var editMode: EditMode = .move {
-        didSet {
-            drawAccessoryViewController.animator().isHidden = editMode != .draw
-            effectsAccessoryViewController.animator().isHidden = editMode != .effects
-            // Mark that state restoration needs to update
-            invalidateRestorableState()
-            // Update UI
-            modeSelectionControl.selectedSegment = editMode.rawValue
-        }
-    }
+//    var editMode: EditMode = .effects
     
     var appearanceObservationToken: NSObjectProtocol?
     
@@ -86,7 +77,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
             NotificationCenter.default.removeObserver(token)
         }
         
-        splitViewController.canvasController.removeSubscriber(self)
+        splitViewController.editSplitViewController.canvasController.removeSubscriber(self)
     }
     
     override func windowDidLoad() {
@@ -94,17 +85,11 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
         let window = self.window!
         let storyboard = self.storyboard!
         
-        // Set up the draw titlebar accessory
-        let drawAccessory = storyboard.instantiateController(withIdentifier: "DrawConfigurationAccessory") as! NSTitlebarAccessoryViewController
-        window.addTitlebarAccessoryViewController(drawAccessory)
-        drawAccessory.isHidden = editMode != .draw
-        drawAccessoryViewController = drawAccessory
-        
         // Similarly, set up the effects titlebar accessory
-        let effectsAccessory = storyboard.instantiateController(withIdentifier: "EffectsConfigurationAccessory") as! EffectsAccessoryViewController
-        window.addTitlebarAccessoryViewController(effectsAccessory)
-        effectsAccessory.isHidden = editMode != .effects
-        effectsAccessoryViewController = effectsAccessory
+//        let effectsAccessory = storyboard.instantiateController(withIdentifier: "EffectsConfigurationAccessory") as! EffectsAccessoryViewController
+//        window.addTitlebarAccessoryViewController(effectsAccessory)
+//        effectsAccessory.isHidden = false
+//        effectsAccessoryViewController = effectsAccessory
         
         // Hide the titlebar for the streamlined toolbar look
         // Comment this out to show the title (file name) of the window
@@ -125,25 +110,21 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
             self?.updateWindowAppearance()
         }
         
-        modeSelectionControl.image(forSegment: 0)?.accessibilityDescription = NSLocalizedString("Move", comment: "Label for the 'move' mode")
-        modeSelectionControl.image(forSegment: 1)?.accessibilityDescription = NSLocalizedString("Draw", comment: "Label for the 'draw' mode")
-        modeSelectionControl.image(forSegment: 2)?.accessibilityDescription = NSLocalizedString("Effects", comment: "Label for the 'effects' mode")
-        
-        splitViewController.canvasController.addSubscriber(self)
+        splitViewController.editSplitViewController.canvasController.addSubscriber(self)
     }
     
     // State restoration example: Save and restore the edit mode property
-    override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
-        coder.encode(editMode.rawValue, forKey: "EditMode")
-    }
-    
-    override func restoreState(with coder: NSCoder) {
-        super.restoreState(with: coder)
-        if let editMode = EditMode(rawValue: coder.decodeInteger(forKey: "EditMode")) {
-            self.editMode = editMode
-        }
-    }
+//    override func encodeRestorableState(with coder: NSCoder) {
+//        super.encodeRestorableState(with: coder)
+//        coder.encode(editMode.rawValue, forKey: "EditMode")
+//    }
+//
+//    override func restoreState(with coder: NSCoder) {
+//        super.restoreState(with: coder)
+//        if let editMode = EditMode(rawValue: coder.decodeInteger(forKey: "EditMode")) {
+//            self.editMode = editMode
+//        }
+//    }
     
     private func updateWindowAppearance() {
         // See Defaults.swift for a definition of useDarkMode
@@ -155,7 +136,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
     }
     
     func updateBrushPoints(mousePoints points: [CGPoint]) {
-        effectsAccessoryViewController.addBrushPoints(mousePoints: points)
+//        effectsAccessoryViewController.addBrushPoints(mousePoints: points)
     }
 }
 
@@ -199,32 +180,32 @@ extension PhotoDocumentWindowController : NSUserInterfaceValidations {
         contentViewController!.presentViewControllerAsSheet(sizeViewController)
     }
     
-    @IBAction func didChangeEditingMode(_ sender: AnyObject!) {
-        let rawValue: Int
-        
-        if sender.isEqual(modeSelectionControl) {
-            rawValue = modeSelectionControl.selectedSegment
-        } else {
-            rawValue = sender.tag
-            modeSelectionControl.selectedSegment = rawValue
-        }
-        
-        if let mode = EditMode(rawValue: rawValue) {
-            editMode = mode
-            
-            // Go through all our windows in the same tab and sync the value; this is just an example of how to do something like this
-            if let tabbedWindows = window?.tabbedWindows {
-                for otherWindow in tabbedWindows {
-                    if let otherWindowController = otherWindow.windowController as? PhotoDocumentWindowController {
-                        if (otherWindowController != self) {
-                            otherWindowController.editMode = mode
-                            otherWindowController.modeSelectionControl.selectedSegment = rawValue
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    @IBAction func didChangeEditingMode(_ sender: AnyObject!) {
+//        let rawValue: Int
+//
+//        if sender.isEqual(modeSelectionControl) {
+//            rawValue = modeSelectionControl.selectedSegment
+//        } else {
+//            rawValue = sender.tag
+//            modeSelectionControl.selectedSegment = rawValue
+//        }
+//
+//        if let mode = EditMode(rawValue: rawValue) {
+//            editMode = mode
+//
+//            // Go through all our windows in the same tab and sync the value; this is just an example of how to do something like this
+//            if let tabbedWindows = window?.tabbedWindows {
+//                for otherWindow in tabbedWindows {
+//                    if let otherWindowController = otherWindow.windowController as? PhotoDocumentWindowController {
+//                        if (otherWindowController != self) {
+//                            otherWindowController.editMode = mode
+//                            otherWindowController.modeSelectionControl.selectedSegment = rawValue
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     @IBAction func didPressZoomSegment(_ sender: NSSegmentedControl!) {
         guard let segment = ZoomSegment(rawValue: sender.selectedSegment) else { return }
@@ -242,15 +223,15 @@ extension PhotoDocumentWindowController : NSUserInterfaceValidations {
     }
     
     @IBAction func zoomIn(_ sender: AnyObject!) {
-        splitViewController.canvasController.zoomIn(sender)
+        splitViewController.editSplitViewController.canvasController.zoomIn(sender)
     }
     
     @IBAction func zoomOut(_ sender: AnyObject!) {
-        splitViewController.canvasController.zoomOut(sender)
+        splitViewController.editSplitViewController.canvasController.zoomOut(sender)
     }
     
     @IBAction func zoomImageToActualSize(_ sender: AnyObject!) {
-        splitViewController.canvasController.zoomImageToActualSize(sender)
+        splitViewController.editSplitViewController.canvasController.zoomImageToActualSize(sender)
     }
     
 }

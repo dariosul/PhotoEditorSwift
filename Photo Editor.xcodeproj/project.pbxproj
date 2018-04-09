@@ -28,6 +28,8 @@
 		1FC619F71CEEBB88001E2DDF /* CanvasClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC619F61CEEBB88001E2DDF /* CanvasClipView.swift */; };
 		9D5093781D09E0720013A565 /* SidebarClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5093771D09E0720013A565 /* SidebarClipView.swift */; };
 		9DFBA0941CFE3ED30085F6AF /* WindowDraggableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBA0931CFE3ED30085F6AF /* WindowDraggableButton.swift */; };
+		DD71648C207C1BA700A313A0 /* EditSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71648B207C1BA700A313A0 /* EditSplitViewController.swift */; };
+		DD71648E207C1D7700A313A0 /* EditToolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71648D207C1D7700A313A0 /* EditToolViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		9D5093771D09E0720013A565 /* SidebarClipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarClipView.swift; sourceTree = "<group>"; };
 		9DFBA0931CFE3ED30085F6AF /* WindowDraggableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowDraggableButton.swift; sourceTree = "<group>"; };
 		B5A5C7ED1D1AB0B70098FB0C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DD71648B207C1BA700A313A0 /* EditSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSplitViewController.swift; sourceTree = "<group>"; };
+		DD71648D207C1D7700A313A0 /* EditToolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 			children = (
 				1FC619F41CEE6B4A001E2DDF /* PhotoDocumentWindowController.swift */,
 				1F67B9E21CF44A5B007F379C /* PhotoSplitViewController.swift */,
+				DD71648B207C1BA700A313A0 /* EditSplitViewController.swift */,
+				DD71648D207C1D7700A313A0 /* EditToolViewController.swift */,
 				1F305E791CEF22820001E008 /* ImageSizeViewController.swift */,
 				9DFBA0931CFE3ED30085F6AF /* WindowDraggableButton.swift */,
 			);
@@ -253,7 +259,9 @@
 				1F6967C11CF3B9D200520B64 /* Defaults.swift in Sources */,
 				1F46B53E1CF59C3E000E0B1E /* CanvasImageView.swift in Sources */,
 				1FC619F51CEE6B4A001E2DDF /* PhotoDocumentWindowController.swift in Sources */,
+				DD71648C207C1BA700A313A0 /* EditSplitViewController.swift in Sources */,
 				1F3B41751CF3C87E00603D63 /* CanvasScrollView.swift in Sources */,
+				DD71648E207C1D7700A313A0 /* EditToolViewController.swift in Sources */,
 				1F5D86581CE52F3300C1D404 /* AppDelegate.swift in Sources */,
 				1F5D865C1CE52F3300C1D404 /* PhotoDocument.swift in Sources */,
 				1F13B4C51CEE630600E22C3F /* CanvasViewController.swift in Sources */,
