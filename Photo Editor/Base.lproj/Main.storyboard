@@ -1053,11 +1053,17 @@ Gw
                                             <rect key="frame" x="18" y="93" width="104" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="5" maxValue="50" doubleValue="10" tickMarkPosition="below" sliderType="linear" id="UOc-A9-by8"/>
+                                            <connections>
+                                                <action selector="OnBrushSizeChange:" target="SMB-kW-9aO" id="ecn-eB-9vS"/>
+                                            </connections>
                                         </slider>
                                         <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EEg-Sq-Ms3">
                                             <rect key="frame" x="20" y="39" width="100" height="23"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="onBrushColorChange:" target="SMB-kW-9aO" id="eWi-iF-y1M"/>
+                                            </connections>
                                         </colorWell>
                                     </subviews>
                                 </view>
@@ -1075,8 +1081,9 @@ Gw
                     </view>
                     <connections>
                         <outlet property="applyFilterButton" destination="CN8-6A-hil" id="bTu-ZF-cWP"/>
+                        <outlet property="brushColorWell" destination="EEg-Sq-Ms3" id="6Zz-Ds-wCD"/>
+                        <outlet property="brushSizeSlider" destination="pCx-1u-tE7" id="yP1-nL-Br9"/>
                         <outlet property="effectSelectionPopUp" destination="VyG-gL-HQc" id="Sfa-j7-trt"/>
-                        <outlet property="mBrushWidth" destination="pCx-1u-tE7" id="mAG-KE-mUK"/>
                         <outlet property="mExposureSlider" destination="AvI-C2-wKE" id="zok-iK-Jy2"/>
                         <outlet property="mShowMask" destination="uPM-E2-DjH" id="uN4-NR-Mao"/>
                     </connections>

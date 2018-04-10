@@ -10,11 +10,15 @@ import Cocoa
 
 class BrushPaintView: CanvasImageView {
 
-    var imageAccumulator: CIImageAccumulator? = nil
     var color: NSColor? = nil
+    var brushSize: CGFloat = 0.0
+    
+    var imageAccumulator: CIImageAccumulator? = nil
+    
+    
     var brushFilter: CIFilter? = nil
     var compositeFilter: CIFilter? = nil
-    var brushSize: CGFloat = 0.0
+    
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

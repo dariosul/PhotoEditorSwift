@@ -9,13 +9,25 @@
 import Cocoa
 
 class EditToolViewController: NSViewController, PhotoControllerConsumer {
+
     @IBOutlet weak var effectSelectionPopUp: NSPopUpButton!
     @IBOutlet weak var applyFilterButton: NSButton!
     
     @IBOutlet weak var mExposureSlider: NSSlider!
-    @IBOutlet weak var mBrushWidth: NSSlider!
-    
+    @IBOutlet weak var brushSizeSlider: NSSlider!
+    @IBOutlet weak var brushColorWell: NSColorWell!
     @IBOutlet weak var mShowMask: NSButton!
+    
+    
+    @IBAction func OnBrushSizeChange(_ sender: NSSlider) {
+        // Set brush size for brush paint view
+    }
+    
+    @IBAction func onBrushColorChange(_ sender: NSColorWell) {
+        // Set brush color for brush paint view
+    }
+    
+    
     
     let filterEffects = Effects()
     var photoController: PhotoController?
@@ -30,6 +42,7 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         }
         
         mExposureSlider.isEnabled = false
+        
     }
     
     @IBAction func onItemChanged(_ sender: NSPopUpButton) {
@@ -76,13 +89,13 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
             baseImage = (photoController?.photo.image)!
             maskColor = CIColor(red: 1, green: 0, blue: 0, alpha: 0.2) // show mask in red color
         }
-        else{
+        else {
             baseImage = (photoController?.photo.cachedImage)!
             maskColor = CIColor(red: 1, green: 1, blue: 1) // masked blur will need grey mask
         }
         
         // brush min - max values are percentages of image dimentions
-        let brushDiameter = Float(max (baseImage.size.width, baseImage.size.height)) * mBrushWidth.floatValue / 100
+        let brushDiameter = Float(max (baseImage.size.width, baseImage.size.height)) * brushSizeSlider.floatValue / 100
         
         var maskImage: CIImage? =  nil
         for blurCenter in points{
