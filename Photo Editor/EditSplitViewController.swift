@@ -19,4 +19,12 @@ class EditSplitViewController: NSSplitViewController {
     var canvasController: CanvasViewController! {
         return childViewControllers.lazy.filter { $0 is CanvasViewController }.first as? CanvasViewController
     }
+    
+    func setBrushSize(_ size: Float) -> Void {
+        canvasController.canvasImageView.brushSize = CGFloat(size)
+    }
+    
+    func setBrushColor(_ color: NSColor) -> Void {
+        canvasController.canvasImageView.color = color
+    }
 }

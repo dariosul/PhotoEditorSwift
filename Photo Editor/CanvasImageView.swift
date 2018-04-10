@@ -59,6 +59,9 @@ class CanvasImageView: NSOpenGLView {
     var image: NSImage? {
         didSet(oldImage) {
             if (oldImage != image) {
+                _ciImage = nil
+                self.clearView()
+                
                 needsDisplay = true
                 invalidateIntrinsicContentSize()
             }
@@ -68,6 +71,11 @@ class CanvasImageView: NSOpenGLView {
     func viewBoundsDidChange(_ bounds: NSRect) -> Void {
         /* For subclasses. */
     }
+    
+    func clearView() -> Void {
+         /* For subclasses. */
+    }
+
     
     func getCIImage() -> CIImage? {
         if _ciImage == nil && image != nil {

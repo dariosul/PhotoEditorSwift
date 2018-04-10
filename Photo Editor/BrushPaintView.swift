@@ -42,6 +42,11 @@ class BrushPaintView: CanvasImageView {
     }
     
     //////
+    
+    override func clearView() -> Void {
+        self.imageAccumulator = nil
+    }
+    
     override func viewBoundsDidChange(_ bounds: NSRect) -> Void {
         if self.imageAccumulator != nil && (self.imageAccumulator?.extent.equalTo(bounds))! {
             return
@@ -69,6 +74,7 @@ class BrushPaintView: CanvasImageView {
         
         self.setCIImage((self.imageAccumulator?.image())!)
     }
+    
     
     /*  Mouse Action Handlers  */
     override func mouseDragged(with event: NSEvent) {

@@ -13,7 +13,7 @@ class CanvasViewController: NSViewController, PhotoControllerConsumer {
     @IBOutlet weak var scrollView: NSScrollView!
 
     @IBOutlet weak var canvasView: CanvasView!
-    @IBOutlet weak var canvasImageView: CanvasImageView!
+    @IBOutlet weak var canvasImageView: BrushPaintView!
     
     @IBOutlet weak var titleTextField: NSTextField!
 

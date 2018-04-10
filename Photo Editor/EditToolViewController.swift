@@ -19,16 +19,20 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     @IBOutlet weak var mShowMask: NSButton!
     
     
-    @IBAction func OnBrushSizeChange(_ sender: NSSlider) {
+    @IBAction func onBrushSizeChange(_ sender: NSSlider) {
         // Set brush size for brush paint view
+        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        parentCtl.setBrushSize(sender.floatValue)
     }
     
     @IBAction func onBrushColorChange(_ sender: NSColorWell) {
         // Set brush color for brush paint view
+        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        parentCtl.setBrushColor(sender.color)
     }
     
     
-    
+
     let filterEffects = Effects()
     var photoController: PhotoController?
     
@@ -43,6 +47,8 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         
         mExposureSlider.isEnabled = false
         
+        self.onBrushSizeChange(brushSizeSlider)
+        self.onBrushColorChange(brushColorWell)
     }
     
     @IBAction func onItemChanged(_ sender: NSPopUpButton) {

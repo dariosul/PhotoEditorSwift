@@ -1054,7 +1054,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="5" maxValue="50" doubleValue="10" tickMarkPosition="below" sliderType="linear" id="UOc-A9-by8"/>
                                             <connections>
-                                                <action selector="OnBrushSizeChange:" target="SMB-kW-9aO" id="ecn-eB-9vS"/>
+                                                <action selector="onBrushSizeChange:" target="SMB-kW-9aO" id="ecn-eB-9vS"/>
                                             </connections>
                                         </slider>
                                         <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EEg-Sq-Ms3">
@@ -1169,7 +1169,7 @@ Gw
                 </viewController>
                 <customObject id="B1q-5N-sC6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="970" y="1622"/>
+            <point key="canvasLocation" x="970" y="1617"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="zZ5-qT-ECb">
