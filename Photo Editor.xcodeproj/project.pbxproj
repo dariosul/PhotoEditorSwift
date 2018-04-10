@@ -28,8 +28,10 @@
 		1FC619F71CEEBB88001E2DDF /* CanvasClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC619F61CEEBB88001E2DDF /* CanvasClipView.swift */; };
 		9D5093781D09E0720013A565 /* SidebarClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5093771D09E0720013A565 /* SidebarClipView.swift */; };
 		9DFBA0941CFE3ED30085F6AF /* WindowDraggableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBA0931CFE3ED30085F6AF /* WindowDraggableButton.swift */; };
+		DD402ED2207D535900174656 /* BrushPaintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD402ED1207D535900174656 /* BrushPaintView.swift */; };
 		DD71648C207C1BA700A313A0 /* EditSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71648B207C1BA700A313A0 /* EditSplitViewController.swift */; };
 		DD71648E207C1D7700A313A0 /* EditToolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD71648D207C1D7700A313A0 /* EditToolViewController.swift */; };
+		DD716491207C3A1100A313A0 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD716490207C3A1100A313A0 /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,8 +60,10 @@
 		9D5093771D09E0720013A565 /* SidebarClipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarClipView.swift; sourceTree = "<group>"; };
 		9DFBA0931CFE3ED30085F6AF /* WindowDraggableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowDraggableButton.swift; sourceTree = "<group>"; };
 		B5A5C7ED1D1AB0B70098FB0C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DD402ED1207D535900174656 /* BrushPaintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushPaintView.swift; sourceTree = "<group>"; };
 		DD71648B207C1BA700A313A0 /* EditSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSplitViewController.swift; sourceTree = "<group>"; };
 		DD71648D207C1D7700A313A0 /* EditToolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolViewController.swift; sourceTree = "<group>"; };
+		DD716490207C3A1100A313A0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD716491207C3A1100A313A0 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +132,7 @@
 				B5A5C7ED1D1AB0B70098FB0C /* README.md */,
 				1F5D86561CE52F3300C1D404 /* Photo Editor */,
 				1F5D86551CE52F3300C1D404 /* Products */,
+				DD71648F207C3A1100A313A0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -174,8 +180,17 @@
 				1FC619F61CEEBB88001E2DDF /* CanvasClipView.swift */,
 				1F13B4C21CEE5E5400E22C3F /* CanvasView.swift */,
 				1F46B53D1CF59C3E000E0B1E /* CanvasImageView.swift */,
+				DD402ED1207D535900174656 /* BrushPaintView.swift */,
 			);
 			name = Canvas;
+			sourceTree = "<group>";
+		};
+		DD71648F207C3A1100A313A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD716490207C3A1100A313A0 /* OpenGL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +273,7 @@
 				1F5D86691CE536BC00C1D404 /* InterfacePreferencesViewController.swift in Sources */,
 				1F6967C11CF3B9D200520B64 /* Defaults.swift in Sources */,
 				1F46B53E1CF59C3E000E0B1E /* CanvasImageView.swift in Sources */,
+				DD402ED2207D535900174656 /* BrushPaintView.swift in Sources */,
 				1FC619F51CEE6B4A001E2DDF /* PhotoDocumentWindowController.swift in Sources */,
 				DD71648C207C1BA700A313A0 /* EditSplitViewController.swift in Sources */,
 				1F3B41751CF3C87E00603D63 /* CanvasScrollView.swift in Sources */,

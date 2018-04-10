@@ -1102,7 +1102,7 @@ Gw
                                         <view translatesAutoresizingMaskIntoConstraints="NO" id="KrZ-bj-8yl" userLabel="Document View" customClass="CanvasView" customModule="Photo_Editor" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="519" height="300"/>
                                             <subviews>
-                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Nxs-NA-9QU" customClass="CanvasImageView" customModule="Photo_Editor" customModuleProvider="target">
+                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Nxs-NA-9QU" customClass="BrushPaintView" customModule="Photo_Editor" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="519" height="300"/>
                                                 </customView>
                                             </subviews>

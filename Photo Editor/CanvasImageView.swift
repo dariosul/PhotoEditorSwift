@@ -8,14 +8,53 @@
 
 
 import Cocoa
+import OpenGL.GL3
+import OpenGL.GL
 
-class CanvasImageView: NSView {
+
+class CanvasImageView: NSOpenGLView {
+
+    var _contextOptions: NSMutableDictionary? = nil
+    var _ciImage: CIImage? = nil
+    var _context: CIContext? = nil
+    var cglContext: CGLContextObj? = nil
+    var pf: NSOpenGLPixelFormat? = nil
     
-    // PhotoDocumentWindowController also has an EditMode, but this view only supports two styles of editing: moving and drawing.
-//    enum EditMode: Int {
-//        case move
-//        case draw
-//    }
+    override class func defaultPixelFormat() -> NSOpenGLPixelFormat {
+
+        let attrs: [NSOpenGLPixelFormatAttribute] = [
+            UInt32(NSOpenGLPFAAccelerated),
+            UInt32(NSOpenGLPFANoRecovery),
+            UInt32(NSOpenGLPFAColorSize), UInt32(32),
+            UInt32(NSOpenGLPFAAllowOfflineRenderers),
+            UInt32(0)
+        ]
+        return NSOpenGLPixelFormat(attributes: attrs)!
+    }
+    
+    override func prepareOpenGL() {
+        var parm: GLint = 1
+
+        /* Enable beam-synced updates. */
+        self.openGLContext?.setValues(&parm, for: NSOpenGLCPSwapInterval)
+
+        /* Make sure that everything we don't need is disabled. Some of these
+         * are enabled by default and can slow down rendering. */
+
+        glDisable(GLenum(GL_ALPHA_TEST))
+        glDisable(GLenum(GL_DEPTH_TEST))
+        glDisable(GLenum(GL_SCISSOR_TEST))
+        glDisable(GLenum(GL_BLEND))
+        glDisable(GLenum(GL_DITHER))
+        glDisable(GLenum(GL_CULL_FACE))
+        glColorMask(GLboolean(GL_TRUE), GLboolean(GL_TRUE), GLboolean(GL_TRUE), GLboolean(GL_TRUE))
+        glDepthMask(GLboolean(GL_FALSE))
+        glStencilMask(0)
+        glClearColor(0.0, 0.0, 0.0, 0.0)
+        glHint(GLenum(GL_TRANSFORM_HINT_APPLE), GLenum(GL_FASTEST))
+    }
+    
+    //////
     
     var image: NSImage? {
         didSet(oldImage) {
@@ -25,18 +64,100 @@ class CanvasImageView: NSView {
             }
         }
     }
-    // these will receive notification about points on mouse draw
-//    private let mouseDrawSubscribers = NSHashTable<AnyObject>.weakObjects()
+    
+    func viewBoundsDidChange(_ bounds: NSRect) -> Void {
+        /* For subclasses. */
+    }
+    
+    func getCIImage() -> CIImage? {
+        if _ciImage == nil && image != nil {
+            
+            /* Convert NSImage to CIImage */
+            let imageData = image?.tiffRepresentation
+            let sourceData = CGImageSourceCreateWithData(imageData! as CFData, nil)
+            let cgImage: CGImage? = CGImageSourceCreateImageAtIndex(sourceData!, 0, nil)
+            _ciImage = CIImage(cgImage: cgImage!)
+        }
+        
+        return _ciImage
+    }
+    
+    func setCIImage(_ image: CIImage) -> Void {
+        self.setCIImage(image, dirtyRect: CGRect.infinite)
+    }
+    
+    func setCIImage(_ image: CIImage, dirtyRect rect: CGRect) -> Void {
+   
+        if image != self._ciImage {
+            
+            self._ciImage = image
+            if rect.isInfinite {
+                self.needsDisplay = true
+            } else {
+                self.setNeedsDisplay(rect)
+            }
+        }
+    }
+    
+    var _lastBounds: NSRect? = nil
+    func updateMatrices() -> Void {
+        let r = self.bounds
+        if _lastBounds == nil || (_lastBounds != nil && !NSEqualRects(r, _lastBounds!)) {
+            self.openGLContext?.update()
+            
+            /* Install an orthographic projection matrix (no perspective)
+             * with the origin in the bottom left and one unit equal to one
+             * device pixel. */
+            
+            glViewport(0, 0, GLsizei(r.size.width), GLsizei(r.size.height));
+            
+            glMatrixMode(UInt32(GL_PROJECTION));
+            glLoadIdentity();
+            glOrtho(0, GLdouble(r.size.width), 0, GLdouble(r.size.height), -1, 1);
+            
+            glMatrixMode(UInt32(GL_MODELVIEW));
+            glLoadIdentity();
+            
+            _lastBounds = r;
+            
+            self.viewBoundsDidChange(r)
+        }
+    }
+    
+    func displayProfileChanged() -> Void {
+    
+        self.cglContext = self.openGLContext?.cglContextObj
+        
+        if(self.pf == nil)
+        {
+            self.pf = self.pixelFormat
+            if (self.pf == nil) {
+                self.pf = CanvasImageView.defaultPixelFormat()
+            }
+        }
+        
+        CGLLockContext(self.cglContext!)
+        
+            // Create a new CIContext using the new output color space
+            let object = NSUserDefaultsController.shared().defaults.object(forKey: "useSoftwareRenderer")
+            if self._contextOptions == nil
+            {
+                self._contextOptions?.setObject(object!, forKey: kCIContextUseSoftwareRenderer as NSCopying)
+            } else {
+                self._contextOptions = NSMutableDictionary(object: object!, forKey: kCIContextUseSoftwareRenderer as NSCopying)
+            }
+        
+            // For 10.6 onwards we use the new API but do not pass in a colorspace as.
+            // Since the cgl context will be rendered to the display, it is valid to rely on CI to get the colorspace from the context.
+            
+        self._context = CIContext(cglContext: self.cglContext!, pixelFormat: self.pf?.cglPixelFormatObj, colorSpace: nil, options: self._contextOptions as? [String : Any])
+
+        CGLUnlockContext(self.cglContext!)
+    }
+
     
     var delegate: CanvasImageViewDelegate?
-    
-//    func addSubscriber(_ subscriber: MouseDraw) {
-//        mouseDrawSubscribers.add(subscriber)
-//    }
-    
-//    func removeSubscriber(_ subscriber: MouseDraw) {
-//        mouseDrawSubscribers.remove(subscriber)
-//    }
+
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -51,16 +172,51 @@ class CanvasImageView: NSView {
     private func commonSetup() {
         layerContentsRedrawPolicy = .onSetNeedsDisplay
     }
-    
+
     override func draw(_ dirtyRect: NSRect) {
-        if let image = image {
-            image.draw(in: bounds)
+        
+        var ir: CGRect? = nil
+        var rr: CGRect? = nil
+        
+        self.openGLContext?.makeCurrentContext()
+        if self._context == nil {
+            self.displayProfileChanged()
         }
-    }
-    
-    // Make the origin be the top left
-    override var isFlipped: Bool {
-        return true
+        
+        ir = CGRect(x: dirtyRect.origin.x, y: dirtyRect.origin.y, width: dirtyRect.width, height: dirtyRect.height).integral
+        
+        self.updateMatrices()
+        
+        /* Clear the specified subrect of the OpenGL surface then
+         * render the image into the view. Use the GL scissor test to
+         * clip to * the subrect. Ask CoreImage to generate an extra
+         * pixel in case * it has to interpolate (allow for hardware
+         * inaccuracies) */
+        
+        rr = ir?.insetBy(dx: -1.0, dy:  -1.0).intersection(self._lastBounds!)
+        glScissor(GLint(ir!.origin.x), GLint(ir!.origin.y), GLsizei(ir!.size.width), GLsizei(ir!.size.height));
+        glEnable(GLenum(GL_SCISSOR_TEST));
+        
+        glClear(GLbitfield(GL_COLOR_BUFFER_BIT));
+        
+        if _ciImage == nil {
+            let imageData = image?.tiffRepresentation
+            let sourceData = CGImageSourceCreateWithData(imageData! as CFData, nil)
+            let cgImage: CGImage? = CGImageSourceCreateImageAtIndex(sourceData!, 0, nil)
+            let ciImage: CIImage? = CIImage(cgImage: cgImage!)
+            
+            self._context?.draw(ciImage!, in: rr!, from: rr!)
+        } else {
+            self._context?.draw(self._ciImage!, in: rr!, from: rr!)
+        }
+        
+        glDisable(GLenum(GL_SCISSOR_TEST))
+        
+        /* Flush the OpenGL command stream. If the view is double
+         * buffered this should be replaced by [[self openGLContext]
+         * flushBuffer]. */
+        
+        glFlush ();
     }
     
     override var intrinsicContentSize: NSSize {
@@ -74,59 +230,10 @@ class CanvasImageView: NSView {
         
     }
     
-//    private func getEditMode() -> EditMode {
-//        if let delegate = delegate {
-//            return delegate.getEditMode(in: self)
-//        } else {
-//            return .move
-//        }
-//    }
-    
     private func sendImageChanged() {
         if let delegate = delegate {
             delegate.canvasImageView(self, didChangeImage: image)
         }
-    }
-    
-    override func mouseDown(with event: NSEvent) {
-//        switch getEditMode() {
-//            case .move:
-            mouseDragged(with: event)
-//                trackForFilters(event: event)
-                //trackForMove(event: event)
-                //fallthrough
-            
-//            case .draw:
-//                trackForDraw(event: event)
-//        }
-    }
-    
-    override func mouseDragged(with event: NSEvent) {
-        
-//        {
-//            CIFilter *brushFilter = self.brushFilter;
-//
-//            NSPoint  loc = [self convertPoint:[event locationInWindow] fromView:nil];
-//            [brushFilter setValue:@(self.brushSize) forKey:@"inputRadius1"];
-//
-//            CIColor *cicolor = [[CIColor alloc] initWithColor:self.color];
-//            [brushFilter setValue:cicolor forKey:@"inputColor0"];
-//
-//            CIVector *inputCenter = [CIVector vectorWithX:loc.x Y:loc.y];
-//            [brushFilter setValue:inputCenter forKey:@"inputCenter"];
-//
-//
-//            CIFilter *compositeFilter = self.compositeFilter;
-//
-//            [compositeFilter setValue:[brushFilter valueForKey:@"outputImage"] forKey:@"inputImage"];
-//            [compositeFilter setValue:[self.imageAccumulator image] forKey:@"inputBackgroundImage"];
-//
-//            CGFloat brushSize = self.brushSize;
-//            CGRect rect = CGRectMake(loc.x-brushSize, loc.y-brushSize, 2.0*brushSize, 2.0*brushSize);
-//
-//            [self.imageAccumulator setImage:[compositeFilter valueForKey:@"outputImage"] dirtyRect:rect];
-//            [self setImage:[self.imageAccumulator image] dirtyRect:rect];
-//        }
     }
     
     // Move the scrollview when the mouse moves
@@ -223,8 +330,6 @@ protocol MouseDraw: class {
 // We don't want to tie our implementation to any specific controller, and instead use delegation via a protocol
 protocol CanvasImageViewDelegate {
     func canvasImageView(_ canvasImageView: CanvasImageView, didChangeImage image: NSImage?)
-//    func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode
-    
     func getMouseDrawSubscribers() -> NSHashTable<AnyObject>
     
     func addSubscriber(_ subscriber: MouseDraw)
@@ -237,7 +342,4 @@ protocol CanvasImageViewDelegate {
 extension CanvasImageViewDelegate {
     func canvasImageView(_ canvasImageView: CanvasImageView, didChange image: NSImage?) {
     }
-//    func getEditMode(in canvasImageView: CanvasImageView) -> CanvasImageView.EditMode {
-//        return CanvasImageView.EditMode.move
-//    }
 }
