@@ -10,6 +10,20 @@ import Cocoa
 
 class EditToolViewController: NSViewController, PhotoControllerConsumer {
 
+    var photoController: PhotoController?
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        effectSelectionPopUp.removeAllItems()
+        EffectsList.allEffects.enumerated().forEach { index, effect in
+            let item = NSMenuItem(title: effect.displayName, action: nil, keyEquivalent: "")
+            item.tag = index
+            effectSelectionPopUp.menu!.addItem(item)
+        }
+        
+        self.onBrushSizeChange(brushSizeSlider)
+        self.onBrushColorChange(brushColorWell)
+    }
+    
     @IBOutlet weak var effectSelectionPopUp: NSPopUpButton!
     @IBOutlet weak var applyFilterButton: NSButton!
     
@@ -18,6 +32,52 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     @IBOutlet weak var brushColorWell: NSColorWell!
     @IBOutlet weak var mShowMask: NSButton!
     
+    var filterEffects: Effects? = nil
+    @IBAction func onExposureChange(_ sender: NSSlider) {
+        if let image = photoController?.photo.image {
+            self.validateEffects(image: image)
+            filterEffects?.setExposure(sender.floatValue)
+            
+            self.updatePreview(size: image.size)
+        }
+    }
+    
+    @IBAction func onContrastChange(_ sender: NSSlider) {
+        if let image = photoController?.photo.image {
+            self.validateEffects(image: image)
+            filterEffects?.setContrast(sender.floatValue)
+            
+            self.updatePreview(size: image.size)
+        }
+    }
+    
+    @IBAction func onSaturationChange(_ sender: NSSlider) {
+        if let image = photoController?.photo.image {
+            self.validateEffects(image: image)
+            filterEffects?.setSaturation(sender.floatValue)
+            
+            self.updatePreview(size: image.size)
+        }
+    }
+    
+    func validateEffects(image: NSImage) -> Void {
+        if filterEffects == nil {
+            let imageData = image.tiffRepresentation!
+            let inputImage = CIImage(data: imageData)
+            
+            filterEffects = Effects(inputImage: inputImage!)
+        }
+    }
+    
+    func updatePreview(size: NSSize) -> Void {
+        let ciImage = filterEffects?.outputImage()
+        
+        let result = NSImage(size: size)
+        let imageRep = NSCIImageRep(ciImage: ciImage!)
+        result.addRepresentation(imageRep)
+        
+        photoController?.setCommitPhotoImage(result)
+    }
     
     @IBAction func onBrushSizeChange(_ sender: NSSlider) {
         // Set brush size for brush paint view
@@ -32,33 +92,14 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     }
     
     
-
-    let filterEffects = Effects()
-    var photoController: PhotoController?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        effectSelectionPopUp.removeAllItems()
-        EffectsList.allEffects.enumerated().forEach { index, effect in
-            let item = NSMenuItem(title: effect.displayName, action: nil, keyEquivalent: "")
-            item.tag = index
-            effectSelectionPopUp.menu!.addItem(item)
-        }
-        
-        mExposureSlider.isEnabled = false
-        
-        self.onBrushSizeChange(brushSizeSlider)
-        self.onBrushColorChange(brushColorWell)
-    }
     
     @IBAction func onItemChanged(_ sender: NSPopUpButton) {
         switch EffectsList.allEffects[effectSelectionPopUp.selectedTag()] {
         case EffectsList.exposure:
-            mExposureSlider.isEnabled = true
             runExposurePreview()
             
         default:
-            mExposureSlider.isEnabled = false
             // discard exposure preview
             photoController?.setPhotoImage(photoController?.photo.cachedImage)
         }
@@ -79,12 +120,12 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     
     // this will make an exposure preview that runs on a previously commited image
     func runExposurePreview(){
-        if let image = photoController?.photo.cachedImage {
-            let val = mExposureSlider.floatValue
-            let filter = filterEffects.getExposure(params: val)
-            let newImage = imageByApplying(filter, to: image)
-            photoController?.setPhotoImage(newImage)
-        }
+//        if let image = photoController?.photo.cachedImage {
+//            let val = mExposureSlider.floatValue
+//            let filter = filterEffects.getExposure(params: val)
+//            let newImage = imageByApplying(filter, to: image)
+//            photoController?.setPhotoImage(newImage)
+//        }
     }
     
     func runMaskedBlur(mousePoints points: [CGPoint]){
@@ -158,12 +199,12 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
             //runMaskedBlur()
         }else{
             // this is an image you see on the screen
-            if let image = photoController?.photo.image {
-                let filter = filterEffects.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
-                
-                let newImage = imageByApplying(filter, to: image)
-                photoController?.setCommitPhotoImage(newImage)
-            }
+//            if let image = photoController?.photo.image {
+//                let filter = filterEffects?.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
+//
+//                let newImage = imageByApplying(filter, to: image)
+//                photoController?.setCommitPhotoImage(newImage)
+//            }
         }
     }
     

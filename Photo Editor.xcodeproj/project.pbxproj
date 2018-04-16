@@ -21,7 +21,6 @@
 		1F67B9E31CF44A5B007F379C /* PhotoSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F67B9E21CF44A5B007F379C /* PhotoSplitViewController.swift */; };
 		1F6967C11CF3B9D200520B64 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6967C01CF3B9D200520B64 /* Defaults.swift */; };
 		1F6CE7101D0A740900B3781E /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CE70F1D0A740900B3781E /* Effects.swift */; };
-		1F6CE7131D0A76EE00B3781E /* EffectsAccessoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CE7121D0A76EE00B3781E /* EffectsAccessoryViewController.swift */; };
 		1F8309371CF3D92200025B46 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8309361CF3D92200025B46 /* PhotoController.swift */; };
 		1F9DDF231CF5451B0015A667 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DDF221CF5451B0015A667 /* Photo.swift */; };
 		1FC619F51CEE6B4A001E2DDF /* PhotoDocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC619F41CEE6B4A001E2DDF /* PhotoDocumentWindowController.swift */; };
@@ -51,7 +50,6 @@
 		1F67B9E21CF44A5B007F379C /* PhotoSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSplitViewController.swift; sourceTree = "<group>"; };
 		1F6967C01CF3B9D200520B64 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		1F6CE70F1D0A740900B3781E /* Effects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
-		1F6CE7121D0A76EE00B3781E /* EffectsAccessoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsAccessoryViewController.swift; sourceTree = "<group>"; };
 		1F75F0761CEE56330078AFDF /* Photo Editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Photo Editor.entitlements"; sourceTree = "<group>"; };
 		1F8309361CF3D92200025B46 /* PhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		1F9DDF221CF5451B0015A667 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				1F6CE70F1D0A740900B3781E /* Effects.swift */,
-				1F6CE7121D0A76EE00B3781E /* EffectsAccessoryViewController.swift */,
 			);
 			name = Effects;
 			sourceTree = "<group>";
@@ -284,7 +281,6 @@
 				1FC619F71CEEBB88001E2DDF /* CanvasClipView.swift in Sources */,
 				1F9DDF231CF5451B0015A667 /* Photo.swift in Sources */,
 				1F13B4C31CEE5E5400E22C3F /* CanvasView.swift in Sources */,
-				1F6CE7131D0A76EE00B3781E /* EffectsAccessoryViewController.swift in Sources */,
 				9D5093781D09E0720013A565 /* SidebarClipView.swift in Sources */,
 				1F67B9E31CF44A5B007F379C /* PhotoSplitViewController.swift in Sources */,
 				1F8309371CF3D92200025B46 /* PhotoController.swift in Sources */,
