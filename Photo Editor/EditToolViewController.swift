@@ -9,52 +9,89 @@
 import Cocoa
 
 class EditToolViewController: NSViewController, PhotoControllerConsumer {
-
-    var photoController: PhotoController?
     override func viewDidLoad() {
         super.viewDidLoad()
-        effectSelectionPopUp.removeAllItems()
-        EffectsList.allEffects.enumerated().forEach { index, effect in
-            let item = NSMenuItem(title: effect.displayName, action: nil, keyEquivalent: "")
-            item.tag = index
-            effectSelectionPopUp.menu!.addItem(item)
-        }
         
         self.onBrushSizeChange(brushSizeSlider)
         self.onBrushColorChange(brushColorWell)
+        self.exposureTextField.floatValue = 0.0
+        self.contrastTextFiled.floatValue = 1.0
+        self.saturationTextField.floatValue = 1.0
     }
     
-    @IBOutlet weak var effectSelectionPopUp: NSPopUpButton!
-    @IBOutlet weak var applyFilterButton: NSButton!
+    // PhotoSubscriber implementation
+    var photoController: PhotoController? {
+        didSet {
+            if let old = oldValue { old.removeSubscriber(self) }
+            if let new = photoController { new.addSubscriber(self) }
+        }
+    }
     
-    @IBOutlet weak var mExposureSlider: NSSlider!
+    @IBOutlet weak var exposureSlider: NSSlider!
+    @IBOutlet weak var exposureTextField: NSTextField!
+    
+    @IBOutlet weak var contrastSlider: NSSlider!
+    @IBOutlet weak var contrastTextFiled: NSTextField!
+    
+    @IBOutlet weak var saturationSlider: NSSlider!
+    @IBOutlet weak var saturationTextField: NSTextField!
+    
     @IBOutlet weak var brushSizeSlider: NSSlider!
     @IBOutlet weak var brushColorWell: NSColorWell!
     @IBOutlet weak var mShowMask: NSButton!
     
     var filterEffects: Effects? = nil
-    @IBAction func onExposureChange(_ sender: NSSlider) {
+    @IBAction func onExposureChange(_ sender: Any) {
         if let image = photoController?.photo.image {
             self.validateEffects(image: image)
-            filterEffects?.setExposure(sender.floatValue)
+            
+            var exposureValue = (sender as AnyObject).floatValue
+            if exposureValue! > Float(2.0) {
+                exposureValue = 2.0
+            } else if exposureValue! < Float(-2.0) {
+                exposureValue = -2.0
+            }
+            self.exposureSlider.floatValue = exposureValue!
+            self.exposureTextField.floatValue = exposureValue!
+            filterEffects?.setExposure(exposureValue)
             
             self.updatePreview(size: image.size)
         }
     }
     
-    @IBAction func onContrastChange(_ sender: NSSlider) {
+    @IBAction func onContrastChange(_ sender: Any) {
         if let image = photoController?.photo.image {
             self.validateEffects(image: image)
-            filterEffects?.setContrast(sender.floatValue)
+            
+            var contrastValue = (sender as AnyObject).floatValue
+            if contrastValue! > Float(2.0) {
+                contrastValue = 2.0
+            } else if contrastValue! < Float(0.0) {
+                contrastValue = 0.0
+            }
+            self.contrastSlider.floatValue = contrastValue!
+            self.contrastTextFiled.floatValue = contrastValue!
+            
+            filterEffects?.setContrast(contrastValue)
             
             self.updatePreview(size: image.size)
         }
     }
     
-    @IBAction func onSaturationChange(_ sender: NSSlider) {
+    @IBAction func onSaturationChange(_ sender: Any) {
         if let image = photoController?.photo.image {
             self.validateEffects(image: image)
-            filterEffects?.setSaturation(sender.floatValue)
+            
+            var saturationValue = (sender as AnyObject).floatValue
+            if saturationValue! > Float(2.0) {
+                saturationValue = 2.0
+            } else if saturationValue! < Float(0.0) {
+                saturationValue = 0.0
+            }
+            self.saturationSlider.floatValue = saturationValue!
+            self.saturationTextField.floatValue = saturationValue!
+            
+            filterEffects?.setSaturation(saturationValue)
             
             self.updatePreview(size: image.size)
         }
@@ -64,7 +101,6 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         if filterEffects == nil {
             let imageData = image.tiffRepresentation!
             let inputImage = CIImage(data: imageData)
-            
             filterEffects = Effects(inputImage: inputImage!)
         }
     }
@@ -72,11 +108,9 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     func updatePreview(size: NSSize) -> Void {
         let ciImage = filterEffects?.outputImage()
         
-        let result = NSImage(size: size)
-        let imageRep = NSCIImageRep(ciImage: ciImage!)
-        result.addRepresentation(imageRep)
-        
-        photoController?.setCommitPhotoImage(result)
+        // Set display image for canvas image view
+        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        parentCtl.setDisplayImage(ciImage!)
     }
     
     @IBAction func onBrushSizeChange(_ sender: NSSlider) {
@@ -90,20 +124,7 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
         parentCtl.setBrushColor(sender.color)
     }
-    
-    
-    
-    
-    @IBAction func onItemChanged(_ sender: NSPopUpButton) {
-        switch EffectsList.allEffects[effectSelectionPopUp.selectedTag()] {
-        case EffectsList.exposure:
-            runExposurePreview()
-            
-        default:
-            // discard exposure preview
-            photoController?.setPhotoImage(photoController?.photo.cachedImage)
-        }
-    }
+    ////////////////////////////
     
     private func imageByApplying(_ filter: CIFilter, to image: NSImage) -> NSImage{
         let sourceImage = CIImage(data: image.tiffRepresentation!)
@@ -116,16 +137,6 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         result.addRepresentation(imageRep)
         
         return result
-    }
-    
-    // this will make an exposure preview that runs on a previously commited image
-    func runExposurePreview(){
-//        if let image = photoController?.photo.cachedImage {
-//            let val = mExposureSlider.floatValue
-//            let filter = filterEffects.getExposure(params: val)
-//            let newImage = imageByApplying(filter, to: image)
-//            photoController?.setPhotoImage(newImage)
-//        }
     }
     
     func runMaskedBlur(mousePoints points: [CGPoint]){
@@ -190,29 +201,31 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         }
     }
     
-    @IBAction func onExposureSlider(_ sender: NSSlider) {
-        runExposurePreview()
-    }
-    
-    @IBAction func btnApplyClicked(_ sender: NSButton) {
-        if EffectsList.allEffects[effectSelectionPopUp.selectedTag()] == EffectsList.blur{
-            //runMaskedBlur()
-        }else{
-            // this is an image you see on the screen
-//            if let image = photoController?.photo.image {
-//                let filter = filterEffects?.getFilter(EffectsList.allEffects[effectSelectionPopUp.selectedTag()])
-//
-//                let newImage = imageByApplying(filter, to: image)
-//                photoController?.setCommitPhotoImage(newImage)
-//            }
-        }
-    }
-    
     func addBrushPoints(mousePoints points: [CGPoint]){
-        if EffectsList.allEffects[effectSelectionPopUp.selectedTag()] == EffectsList.blur{
+        //if EffectsList.allEffects[effectSelectionPopUp.selectedTag()] == EffectsList.blur {
             runMaskedBlur(mousePoints: points)
-        }
-        
+        //}
     }
     
+}
+
+extension EditToolViewController: PhotoSubscriber {
+    
+    func photo(_ photo: Photo, didChangeImage image: NSImage?, from oldImage: NSImage?) {
+        
+        // Do clean up when select another image
+        self.filterEffects = nil
+        exposureSlider.floatValue = 0.0
+        exposureTextField.floatValue = 0.0
+        
+        contrastSlider.floatValue = 1.0
+        contrastTextFiled.floatValue = 1.0
+        
+        saturationSlider.floatValue = 1.0
+        saturationTextField.floatValue = 1.0
+    }
+    
+    func photo(_ photo: Photo, didChangeTitle title: String) {
+        // Do nothing
+    }
 }

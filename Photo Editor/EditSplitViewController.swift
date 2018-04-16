@@ -27,4 +27,8 @@ class EditSplitViewController: NSSplitViewController {
     func setBrushColor(_ color: NSColor) -> Void {
         canvasController.canvasImageView.color = color
     }
+    
+    func setDisplayImage(_ ciImage: CIImage) -> Void {
+        canvasController.canvasImageView.setCIImage(ciImage)
+    }
 }

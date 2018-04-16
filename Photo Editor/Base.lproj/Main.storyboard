@@ -950,19 +950,19 @@ Gw
             <objects>
                 <viewController id="SMB-kW-9aO" customClass="EditToolViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="eu5-nQ-gPg">
-                        <rect key="frame" x="0.0" y="0.0" width="215" height="442"/>
+                        <rect key="frame" x="0.0" y="0.0" width="259" height="442"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LSd-nC-B2h">
-                                <rect key="frame" x="102" y="73" width="96" height="19"/>
+                                <rect key="frame" x="91" y="89" width="96" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="wPo-yO-7sj"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="wPo-yO-7sj"/>
                                 <connections>
                                     <action selector="onContrastChange:" target="SMB-kW-9aO" id="MaV-ME-1vc"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h58-Vm-65Q">
-                                <rect key="frame" x="9" y="110" width="61" height="17"/>
+                                <rect key="frame" x="15" y="126" width="61" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure" id="Xo6-ky-ZpS">
                                     <font key="font" metaFont="system"/>
@@ -971,7 +971,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0UJ-4d-tme">
-                                <rect key="frame" x="9" y="75" width="57" height="17"/>
+                                <rect key="frame" x="15" y="91" width="57" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Contrast" id="uAL-2e-MEe">
                                     <font key="font" metaFont="system"/>
@@ -980,7 +980,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rhY-Dy-vaF">
-                                <rect key="frame" x="12" y="40" width="67" height="17"/>
+                                <rect key="frame" x="15" y="57" width="67" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Saturation" id="aRe-Go-0Es">
                                     <font key="font" metaFont="system"/>
@@ -988,40 +988,6 @@ Gw
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CN8-6A-hil">
-                                <rect key="frame" x="87" y="151" width="56" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7zh-cO-OJB">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="btnApplyClicked:" target="SMB-kW-9aO" id="RIM-f6-Vgn"/>
-                                </connections>
-                            </button>
-                            <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VyG-gL-HQc">
-                                <rect key="frame" x="8" y="154" width="68" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="D9r-g3-LcN" id="G5Y-u6-s6E">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <menu key="menu" id="xqN-Rz-sVw">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" id="D9r-g3-LcN"/>
-                                            <menuItem title="Item 2" id="k1Z-A3-ULt"/>
-                                            <menuItem title="Item 3" id="s3w-as-in8"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvX-Js-muJ">
-                                <rect key="frame" x="102" y="38" width="96" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="gYA-4J-kpH"/>
-                                <connections>
-                                    <action selector="onSaturationChange:" target="SMB-kW-9aO" id="d5m-lg-Ckx"/>
-                                </connections>
-                            </slider>
                             <box fixedFrame="YES" title="Brush" translatesAutoresizingMaskIntoConstraints="NO" id="VxC-7i-pUp">
                                 <rect key="frame" x="11" y="208" width="177" height="165"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1076,27 +1042,74 @@ Gw
                                 <font key="titleFont" metaFont="system"/>
                             </box>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AvI-C2-wKE">
-                                <rect key="frame" x="102" y="108" width="96" height="19"/>
+                                <rect key="frame" x="91" y="124" width="96" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="below" sliderType="linear" id="3WK-dz-M3k"/>
+                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" sliderType="linear" id="3WK-dz-M3k"/>
                                 <connections>
                                     <action selector="onExposureChange:" target="SMB-kW-9aO" id="8G7-bb-w75"/>
                                 </connections>
                             </slider>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvX-Js-muJ">
+                                <rect key="frame" x="91" y="54" width="96" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="gYA-4J-kpH"/>
+                                <connections>
+                                    <action selector="onSaturationChange:" target="SMB-kW-9aO" id="d5m-lg-Ckx"/>
+                                </connections>
+                            </slider>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SrZ-fl-htk" userLabel="ExposureTextField">
+                                <rect key="frame" x="193" y="125" width="30" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" drawsBackground="YES" id="BaK-Pk-M1S">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="onExposureChange:" target="SMB-kW-9aO" id="LDO-Ek-ewK"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FjA-TD-PD6" userLabel="ContrastTextField">
+                                <rect key="frame" x="193" y="90" width="30" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" drawsBackground="YES" id="dqH-bl-V16">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="onContrastChange:" target="SMB-kW-9aO" id="HVn-Xd-OT0"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y36-aL-5UK" userLabel="SaturationTextField">
+                                <rect key="frame" x="193" y="57" width="30" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" drawsBackground="YES" id="X6h-O7-WpY">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="onSaturationChange:" target="SMB-kW-9aO" id="gBw-QW-Vyk"/>
+                                </connections>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="applyFilterButton" destination="CN8-6A-hil" id="bTu-ZF-cWP"/>
                         <outlet property="brushColorWell" destination="EEg-Sq-Ms3" id="6Zz-Ds-wCD"/>
                         <outlet property="brushSizeSlider" destination="pCx-1u-tE7" id="yP1-nL-Br9"/>
-                        <outlet property="effectSelectionPopUp" destination="VyG-gL-HQc" id="Sfa-j7-trt"/>
-                        <outlet property="mExposureSlider" destination="AvI-C2-wKE" id="zok-iK-Jy2"/>
+                        <outlet property="contrastSlider" destination="LSd-nC-B2h" id="7By-xO-2v5"/>
+                        <outlet property="contrastTextFiled" destination="FjA-TD-PD6" id="4UW-VY-zkv"/>
+                        <outlet property="exposureSlider" destination="AvI-C2-wKE" id="zok-iK-Jy2"/>
+                        <outlet property="exposureTextField" destination="SrZ-fl-htk" id="pEW-hi-7Xb"/>
                         <outlet property="mShowMask" destination="uPM-E2-DjH" id="uN4-NR-Mao"/>
+                        <outlet property="saturationSlider" destination="wvX-Js-muJ" id="1c9-NP-HzM"/>
+                        <outlet property="saturationTextField" destination="y36-aL-5UK" id="MDk-ez-g5n"/>
                     </connections>
                 </viewController>
                 <customObject id="oE0-yO-Tiu" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="817.5" y="1189"/>
+            <point key="canvasLocation" x="839.5" y="1189"/>
         </scene>
         <!--Canvas View Controller-->
         <scene sceneID="FdD-kj-dQd">
