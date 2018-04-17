@@ -41,6 +41,9 @@ class Effects {
     var mExposure: CIFilter? = nil
     var mColorControls: CIFilter? = nil
     
+    var mMaskImage: CIImage? = nil
+    var mBaseImage: CIImage? = nil
+    
     init() {
         
         mExposure = CIFilter(name: EffectsList.exposure.filterName)
@@ -53,11 +56,22 @@ class Effects {
     convenience init(inputImage: CIImage) {
         self.init()
         mExposure?.setValue(inputImage, forKey: kCIInputImageKey)
+        mBaseImage = inputImage // this is the background image
     }
     
     func outputImage() -> CIImage? {
         mColorControls?.setValue(mExposure?.outputImage, forKey: kCIInputImageKey)
-        return mColorControls?.outputImage
+        // if mask is available use
+        if (mMaskImage != nil){
+            let blendWithMask = CIFilter(name: "CIBlendWithMask")
+            blendWithMask?.setValue(mColorControls?.outputImage, forKey: kCIInputImageKey)
+            blendWithMask?.setValue(mBaseImage, forKey: kCIInputBackgroundImageKey)
+            blendWithMask?.setValue(mMaskImage, forKey: kCIInputMaskImageKey)
+            return blendWithMask?.outputImage
+        }
+        else{
+            return mColorControls?.outputImage
+        }
     }
     
     func getExposure(params filterParams: Any? = nil)-> CIFilter{

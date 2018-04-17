@@ -16,7 +16,8 @@ class BrushPaintView: CanvasImageView {
         didSet(oldValue){
             if (showMask){
                 NSLog("show mask selected")
-                self.setCIImage((self.imageAccumulator?.image())!, dirtyRect: CGRect.infinite)
+                let img = (self.imageAccumulator?.image())!
+                self.setCIImage((self.imageAccumulator?.image())!)
             }
             else{
                 NSLog("dont show mask")
@@ -29,6 +30,13 @@ class BrushPaintView: CanvasImageView {
     var baseImage: CIImage? = nil
     
     var imageAccumulator: CIImageAccumulator? = nil
+    // added a separate brush accumulator that will duplicate all the brush strokes on the black transparent backgound
+    // i tried following based on my understanding of how it should work and it did not work:
+    // start an new image accumulator not with the loaded image (photo) but with a black (or white) completely transparent backgound, that way new brushes
+    // accumulate / paint the brush trokes over it
+    // if showMask is selected then overlay the last accumulated image over the baseImage: use CISourceOverCompositing, withInputParameters: ["inputImage": self.imageAccumulator?.image() as Any,  "inputBackgroundImage": baseImage!]
+    var brushMaskAccumulator: CIImageAccumulator? = nil
+    var mMouseDragObserver: MouseDragObserver? = nil
     
     var brushFilter: CIFilter? = nil
     var compositeFilter: CIFilter? = nil
@@ -59,6 +67,7 @@ class BrushPaintView: CanvasImageView {
     
     override func clearView() -> Void {
         self.imageAccumulator = nil
+        self.brushMaskAccumulator = nil
     }
     
     override func viewBoundsDidChange(_ bounds: NSRect) -> Void {
@@ -87,9 +96,18 @@ class BrushPaintView: CanvasImageView {
         
         self.imageAccumulator = newAccumulator;
         
+        setupBrushMaskAccumulator()
+        
         self.setCIImage((self.imageAccumulator?.image())!)
     }
     
+    func setupBrushMaskAccumulator() ->Void {
+        let newAccumulator: CIImageAccumulator = CIImageAccumulator(extent: bounds, format: kCIFormatRGBA16)!
+        let filter: CIFilter = CIFilter(name: "CIConstantColorGenerator", withInputParameters: ["inputColor" : CIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)])!
+        
+        newAccumulator.setImage(filter.outputImage!)
+        self.brushMaskAccumulator = newAccumulator
+    }
     
     /*  Mouse Action Handlers  */
     override func mouseDragged(with event: NSEvent) {
@@ -111,13 +129,27 @@ class BrushPaintView: CanvasImageView {
         let rect = CGRect(x: loc.x-brushSize, y: loc.y-brushSize, width: 2.0*brushSize, height: 2.0*brushSize)
         self.imageAccumulator?.setImage((compositeFilter?.outputImage)!, dirtyRect: rect)
         
+        // update the brush mask too
+        self.brushMaskAccumulator?.setImage((compositeFilter?.outputImage)!, dirtyRect: rect)
+        
         if (showMask){
-            self.setCIImage((self.imageAccumulator?.image())!, dirtyRect: rect) //self.imageAccumulator?.image()- last brush stroke
+            //self.imageAccumulator?.image()- last brush stroke
+            //let filter = CIFilter(name: "CISourceOverCompositing", withInputParameters: ["inputImage": self.imageAccumulator?.image() as Any,  "inputBackgroundImage": baseImage!])!
+            //self.setCIImage(filter.outputImage!)
+            
+            self.setCIImage((self.imageAccumulator?.image())!, dirtyRect: rect)
         }
+        
+        // pass updated mask to filters
+        mMouseDragObserver!.onNewBrushStroke(self.brushMaskAccumulator?.image())
     }
     
     override func mouseDown(with event: NSEvent) {
         self.mouseDragged(with: event)
     }
     
+}
+
+protocol MouseDragObserver{
+    func onNewBrushStroke(_ ciImage: CIImage?) -> Void
 }
