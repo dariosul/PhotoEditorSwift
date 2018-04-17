@@ -33,6 +33,7 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     @IBOutlet weak var mShowMask: NSButton!
     
     var filterEffects: Effects? = nil
+    
     @IBAction func onExposureChange(_ sender: NSSlider) {
         if let image = photoController?.photo.image {
             self.validateEffects(image: image)
@@ -92,6 +93,11 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     }
     
     
+    @IBAction func onShowMask(_ sender: NSButtonCell) {
+        // Set brush color for brush paint view
+        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        parentCtl.setShowMask(sender.state == NSOnState)
+    }
     
     
     @IBAction func onItemChanged(_ sender: NSPopUpButton) {

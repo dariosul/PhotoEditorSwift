@@ -12,9 +12,20 @@ class BrushPaintView: CanvasImageView {
 
     var color: NSColor? = nil
     var brushSize: CGFloat = 0.0
+    var showMask: Bool = true {
+        didSet(oldValue){
+            if (showMask){
+                NSLog("show mask selected")
+                self.setCIImage((self.imageAccumulator?.image())!, dirtyRect: CGRect.infinite)
+            }
+            else{
+                NSLog("dont show mask")
+                
+            }
+        }
+    }
     
     var imageAccumulator: CIImageAccumulator? = nil
-    
     
     var brushFilter: CIFilter? = nil
     var compositeFilter: CIFilter? = nil
@@ -95,8 +106,10 @@ class BrushPaintView: CanvasImageView {
         let brushSize = self.brushSize
         let rect = CGRect(x: loc.x-brushSize, y: loc.y-brushSize, width: 2.0*brushSize, height: 2.0*brushSize)
         self.imageAccumulator?.setImage((compositeFilter?.outputImage)!, dirtyRect: rect)
-       
-        self.setCIImage((self.imageAccumulator?.image())!, dirtyRect: rect)
+        
+        if (showMask){
+            self.setCIImage((self.imageAccumulator?.image())!, dirtyRect: rect) //self.imageAccumulator?.image()- last brush stroke
+        }
     }
     
     override func mouseDown(with event: NSEvent) {
