@@ -10,15 +10,11 @@ import Cocoa
 import CoreImage
 
 enum EffectsList {
-    case blur
     case exposure
     case colorControls
     
     var displayName: String {
         switch self {
-        case .blur:
-            return NSLocalizedString("Masked Blur", comment: "Display name for the blur effect")
-     
         case .exposure:
             return NSLocalizedString("Exposure", comment: "Display name for the exposure effect")
             
@@ -28,11 +24,7 @@ enum EffectsList {
     }
     
     var filterName: String {
-        //private var filterName: String {
         switch self {
-        case .blur:
-            return "CIMaskedVariableBlur" //"CIGaussianBlur"
-            
         case .exposure:
             return "CIExposureAdjust"
             
@@ -41,13 +33,11 @@ enum EffectsList {
         }
     }
 
-    static var allEffects: [EffectsList] = [.blur, .exposure, .colorControls]
-    static var allNonAdjustable: [EffectsList] = [.blur]
+    static var allEffects: [EffectsList] = [.exposure, .colorControls]
 }
 
 class Effects {
     
-    var mBlur: CIFilter? = nil
     var mExposure: CIFilter? = nil
     var mColorControls: CIFilter? = nil
     
@@ -58,22 +48,15 @@ class Effects {
         
         mColorControls = CIFilter(name: EffectsList.colorControls.filterName)
         mColorControls?.setDefaults()
-        
-        //////
-        mBlur = CIFilter(name: EffectsList.blur.filterName)
-        mBlur?.setDefaults()
     }
     
     convenience init(inputImage: CIImage) {
         self.init()
         mExposure?.setValue(inputImage, forKey: kCIInputImageKey)
-        mColorControls?.setValue(mExposure?.outputImage, forKey: kCIInputImageKey)
     }
     
     func outputImage() -> CIImage? {
-        
         mColorControls?.setValue(mExposure?.outputImage, forKey: kCIInputImageKey)
-        
         return mColorControls?.outputImage
     }
     
@@ -92,9 +75,6 @@ class Effects {
         if contrastParams != nil {
             print("set contrast", contrastParams as! Float)
             mColorControls?.setValue(contrastParams as! Float, forKey: "inputContrast")
-            
-            //mColorControls?.setValue(mColorControls?.attributes["inputBrightness"], forKey: "inputBrightness")
-            //mColorControls?.setValue(mColorControls?.attributes["inputSaturation"], forKey: "inputSaturation")
         }
     }
     
@@ -102,9 +82,6 @@ class Effects {
         if saturationParams != nil {
             print("set saturation", saturationParams as! Float)
             mColorControls?.setValue(saturationParams as! Float, forKey: "inputSaturation")
-            
-            //mColorControls?.setValue(mColorControls?.attributes["inputBrightness"], forKey: "inputBrightness")
-            //mColorControls?.setValue(mColorControls?.attributes["inputContrast"], forKey: "inputContrast")
         }
     }
 
