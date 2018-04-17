@@ -28,6 +28,10 @@ class EditSplitViewController: NSSplitViewController {
         canvasController.canvasImageView.color = color
     }
     
+
+    func setShowMask(_ showMask: Bool) -> Void {
+        canvasController.canvasImageView.showMask = showMask
+    }
     func setDisplayImage(_ ciImage: CIImage) -> Void {
         canvasController.canvasImageView.setCIImage(ciImage)
     }

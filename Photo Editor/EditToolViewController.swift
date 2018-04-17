@@ -41,6 +41,8 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     @IBOutlet weak var mShowMask: NSButton!
     
     var filterEffects: Effects? = nil
+
+
     @IBAction func onExposureChange(_ sender: Any) {
         if let image = photoController?.photo.image {
             self.validateEffects(image: image)
@@ -124,7 +126,15 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
         parentCtl.setBrushColor(sender.color)
     }
-    ////////////////////////////
+
+    
+    
+    @IBAction func onShowMask(_ sender: NSButtonCell) {
+        // Set brush color for brush paint view
+        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        parentCtl.setShowMask(sender.state == NSOnState)
+    }
+
     
     private func imageByApplying(_ filter: CIFilter, to image: NSImage) -> NSImage{
         let sourceImage = CIImage(data: image.tiffRepresentation!)

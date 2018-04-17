@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -801,13 +801,13 @@ Gw
                                 <rect key="frame" x="0.0" y="0.0" width="173" height="300"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDo-St-fvb">
-                                        <rect key="frame" x="0.0" y="25" width="173" height="275"/>
+                                        <rect key="frame" x="0.0" y="26" width="173" height="274"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="wSg-RF-7wd" customClass="SidebarClipView" customModule="Photo_Editor" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="173" height="275"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="173" height="274"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnSelection="YES" autosaveColumns="NO" rowHeight="40" viewBased="YES" id="91w-yT-6WQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="173" height="275"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="173" height="274"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -880,7 +880,7 @@ Gw
                                         </scroller>
                                     </scrollView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rAr-WI-vbA">
-                                        <rect key="frame" x="4" y="4" width="88" height="17"/>
+                                        <rect key="frame" x="4" y="4" width="88" height="18"/>
                                         <buttonCell key="cell" type="inline" title="Choose…" bezelStyle="inline" image="FolderTemplate" imagePosition="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="uYd-ek-af8">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1016,9 +1016,12 @@ Gw
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uPM-E2-DjH">
                                             <rect key="frame" x="18" y="12" width="91" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Show Mask" bezelStyle="regularSquare" imagePosition="left" inset="2" id="872-Tc-ZAp">
+                                            <buttonCell key="cell" type="check" title="Show Mask" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="872-Tc-ZAp">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="onShowMask:" target="SMB-kW-9aO" id="T0B-w0-ibN"/>
+                                                </connections>
                                             </buttonCell>
                                         </button>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pCx-1u-tE7">
@@ -1229,14 +1232,14 @@ Gw
                                 <rect key="frame" x="79" y="37" width="213" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" id="Jw8-Di-wbO">
-                                    <rect key="frame" x="1" y="1" width="196" height="65"/>
+                                    <rect key="frame" x="1" y="1" width="211" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView ambiguous="YES" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="EZk-jr-k4A">
-                                            <rect key="frame" x="0.0" y="0.0" width="196" height="65"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="211" height="65"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="196" height="65"/>
+                                            <size key="minSize" width="211" height="65"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="I really want to visit this place some day! The views look amazing.">
@@ -1256,7 +1259,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="fIv-28-CIl">
-                                    <rect key="frame" x="197" y="1" width="15" height="65"/>
+                                    <rect key="frame" x="196" y="1" width="16" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
