@@ -135,12 +135,12 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         parentCtl.setShowMask(sender.state == NSOnState)
     }
 
-    func onNewBrushStroke(_ ciImage: CIImage?) ->Void{
+    func onNewBrushStroke(_ ciMaskImage: CIImage?) ->Void{
 
         if let image = photoController?.photo.image {
             self.validateEffects(image: image)
             
-            filterEffects?.mMaskImage = ciImage
+            filterEffects?.mMaskImage = ciMaskImage
             
             if (mShowMask.state != NSOnState){
                 self.updatePreview(size: image.size)

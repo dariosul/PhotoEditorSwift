@@ -55,9 +55,9 @@ class CanvasViewController: NSViewController, PhotoControllerConsumer, MouseDrag
         canvasImageView.mMouseDragObserver = self
     }
 
-    func onNewBrushStroke(_ ciImage: CIImage?) -> Void{
+    func onNewBrushStroke(_ ciMaskImage: CIImage?) -> Void{
         let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
-        parentCtl.onNewBrushStroke(ciImage)
+        parentCtl.onNewBrushStroke(ciMaskImage)
     }
     
     @IBAction func zoomIn(_ sender: AnyObject!) {

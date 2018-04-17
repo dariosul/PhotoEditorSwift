@@ -36,7 +36,7 @@ class EditSplitViewController: NSSplitViewController {
         canvasController.canvasImageView.setCIImage(ciImage)
     }
     
-    func onNewBrushStroke(_ ciImage: CIImage?) ->Void{
-        editToolViewController.onNewBrushStroke(ciImage)
+    func onNewBrushStroke(_ ciMaskImage: CIImage?) ->Void{
+        editToolViewController.onNewBrushStroke(ciMaskImage)
     }
 }

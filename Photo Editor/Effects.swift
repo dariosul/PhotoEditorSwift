@@ -56,7 +56,7 @@ class Effects {
     convenience init(inputImage: CIImage) {
         self.init()
         mExposure?.setValue(inputImage, forKey: kCIInputImageKey)
-        mBaseImage = inputImage // this is the background image
+        mBaseImage = inputImage // original unprocessed image
     }
     
     func outputImage() -> CIImage? {
@@ -64,9 +64,9 @@ class Effects {
         // if mask is available use
         if (mMaskImage != nil){
             let blendWithMask = CIFilter(name: "CIBlendWithMask")
-            blendWithMask?.setValue(mColorControls?.outputImage, forKey: kCIInputImageKey)
-            blendWithMask?.setValue(mBaseImage, forKey: kCIInputBackgroundImageKey)
-            blendWithMask?.setValue(mMaskImage, forKey: kCIInputMaskImageKey)
+            blendWithMask?.setValue(mColorControls?.outputImage, forKey: "inputImage")
+            blendWithMask?.setValue(mBaseImage, forKey: "inputBackgroundImage")
+            blendWithMask?.setValue(mMaskImage, forKey:  "inputMaskImage")
             return blendWithMask?.outputImage
         }
         else{
