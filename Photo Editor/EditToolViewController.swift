@@ -134,20 +134,6 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
         parentCtl.setShowMask(sender.state == NSOnState)
     }
-    
-    
-//    @IBAction func onItemChanged(_ sender: NSPopUpButton) {
-//        switch EffectsList.allEffects[effectSelectionPopUp.selectedTag()] {
-//        case EffectsList.exposure:
-//            runExposurePreview()
-//            
-//        default:
-//            // discard exposure preview
-//            photoController?.setPhotoImage(photoController?.photo.cachedImage)
-//        }
-//    }
-
-    ////////////////////////////
 
     
     private func imageByApplying(_ filter: CIFilter, to image: NSImage) -> NSImage{

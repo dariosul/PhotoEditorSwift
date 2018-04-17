@@ -20,10 +20,13 @@ class BrushPaintView: CanvasImageView {
             }
             else{
                 NSLog("dont show mask")
+                self.setCIImage(baseImage!)
                 
             }
         }
     }
+    
+    var baseImage: CIImage? = nil
     
     var imageAccumulator: CIImageAccumulator? = nil
     
@@ -66,6 +69,7 @@ class BrushPaintView: CanvasImageView {
         if imageAccumulator == nil && self.getCIImage() != nil {
             imageAccumulator = CIImageAccumulator(extent: bounds, format: kCIFormatRGBA16)!
             imageAccumulator?.setImage(self.getCIImage()!)
+            baseImage = self.getCIImage()
         }
         
         /* Create a new accumulator and composite the old one over the it. */
