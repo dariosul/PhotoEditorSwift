@@ -264,30 +264,6 @@ class CanvasImageView: NSOpenGLView {
         }
     }
     
-    // Record the points when the mouse moves
-    private func trackForFilters(event mouseDownEvent: NSEvent) {
-        
-        let window = self.window!
-        let startingPoint = self.convert(mouseDownEvent.locationInWindow, from: nil)
-        var points = [startingPoint]
-        
-        window.trackEvents(matching: [.leftMouseDragged, .leftMouseUp], timeout:NSEventDurationForever, mode: .defaultRunLoopMode) { event, stop in
-            
-            let currentPoint = self.convert(event.locationInWindow, from: nil)
-            points.append(currentPoint)
-            
-            if event.type == .leftMouseUp {
-                stop.pointee = true
-            }
-        }
-        
-        // send the update to subscriber
-        for object in delegate!.getMouseDrawSubscribers().objectEnumerator(){
-            guard let subscriber = object as? MouseDraw else {continue}
-            subscriber.updateBrushPoints(mousePoints: points)
-        }
-    }
-    
     // "draw" on the image
     private func trackForDraw(event mouseDownEvent: NSEvent) {
         // Draw on a copy of the image
@@ -329,20 +305,9 @@ class CanvasImageView: NSOpenGLView {
     }
 }
 
-
-protocol MouseDraw: class {
-    func updateBrushPoints(mousePoints points: [CGPoint])->Void
-}
-
-
 // We don't want to tie our implementation to any specific controller, and instead use delegation via a protocol
 protocol CanvasImageViewDelegate {
     func canvasImageView(_ canvasImageView: CanvasImageView, didChangeImage image: NSImage?)
-    func getMouseDrawSubscribers() -> NSHashTable<AnyObject>
-    
-    func addSubscriber(_ subscriber: MouseDraw)
-    
-    func removeSubscriber(_ subscriber: MouseDraw)
 }
 
 

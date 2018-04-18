@@ -9,7 +9,7 @@
 
 import Cocoa
 
-class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, MouseDraw {
+class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
     
 //    enum EditMode: Int {
 //        case move
@@ -76,8 +76,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
         if let token = appearanceObservationToken {
             NotificationCenter.default.removeObserver(token)
         }
-        
-        splitViewController.editSplitViewController.canvasController.removeSubscriber(self)
+
     }
     
     override func windowDidLoad() {
@@ -109,8 +108,6 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
         appearanceObservationToken = NotificationCenter.default.addObserver(forName: .appearanceChanged, object: nil, queue: nil) { [weak self] _ in
             self?.updateWindowAppearance()
         }
-        
-        splitViewController.editSplitViewController.canvasController.addSubscriber(self)
     }
     
     // State restoration example: Save and restore the edit mode property
@@ -133,10 +130,6 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
         } else {
             window?.appearance = nil // Goes back to the default Aqua appearance
         }
-    }
-    
-    func updateBrushPoints(mousePoints points: [CGPoint]) {
-//        effectsAccessoryViewController.addBrushPoints(mousePoints: points)
     }
 }
 

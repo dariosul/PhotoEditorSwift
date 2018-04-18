@@ -19,8 +19,6 @@ class CanvasViewController: NSViewController, PhotoControllerConsumer, MouseDrag
 
     private var topTextFieldConstraint: NSLayoutConstraint?
     
-    var mouseDrawSubscribers = NSHashTable<AnyObject>.weakObjects()
-    
     // PhotoSubscriber implementation
     var photoController: PhotoController? {
         didSet {
@@ -132,17 +130,5 @@ extension CanvasViewController: CanvasImageViewDelegate {
 //                return .draw
 //        }
 //    }
-
-    func getMouseDrawSubscribers() -> NSHashTable<AnyObject> {
-         return mouseDrawSubscribers
-    }
-    
-    func addSubscriber(_ subscriber: MouseDraw) {
-        mouseDrawSubscribers.add(subscriber)
-    }
-    
-    func removeSubscriber(_ subscriber: MouseDraw) {
-        mouseDrawSubscribers.remove(subscriber)
-    }
 }
 
