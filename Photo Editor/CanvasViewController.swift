@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class CanvasViewController: NSViewController, PhotoControllerConsumer {
+class CanvasViewController: NSViewController, PhotoControllerConsumer, MouseDragObserver {
 
     @IBOutlet weak var scrollView: NSScrollView!
 
@@ -52,8 +52,13 @@ class CanvasViewController: NSViewController, PhotoControllerConsumer {
     override func viewDidLoad() {
         super.viewDidLoad()
         canvasImageView.delegate = self
+        canvasImageView.mMouseDragObserver = self
     }
 
+    func onNewBrushStroke(_ ciMaskImage: CIImage?) -> Void{
+        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        parentCtl.onNewBrushStroke(ciMaskImage)
+    }
     
     @IBAction func zoomIn(_ sender: AnyObject!) {
         let currentZoom = scrollView.magnification
@@ -127,7 +132,7 @@ extension CanvasViewController: CanvasImageViewDelegate {
 //                return .draw
 //        }
 //    }
-    
+
     func getMouseDrawSubscribers() -> NSHashTable<AnyObject> {
          return mouseDrawSubscribers
     }
@@ -139,6 +144,5 @@ extension CanvasViewController: CanvasImageViewDelegate {
     func removeSubscriber(_ subscriber: MouseDraw) {
         mouseDrawSubscribers.remove(subscriber)
     }
-
 }
 
