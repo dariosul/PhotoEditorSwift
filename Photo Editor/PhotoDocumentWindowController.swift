@@ -213,12 +213,15 @@ extension PhotoDocumentWindowController : NSUserInterfaceValidations {
         switch segment {
             case .zoomOut:
                 zoomOut(sender)
+            break
             
             case .actualSize:
                 zoomImageToActualSize(sender)
+            break
             
             case .zoomIn:
                 zoomIn(sender)
+            break
         }
     }
     
