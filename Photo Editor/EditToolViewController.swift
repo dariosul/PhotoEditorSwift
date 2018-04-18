@@ -159,76 +159,7 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         result.addRepresentation(imageRep)
         
         return result
-    }
-    
-    func runMaskedBlur(mousePoints points: [CGPoint]){
-        var baseImage : NSImage
-        var maskColor: CIColor
-        
-        if (mShowMask.state == NSOnState){
-            baseImage = (photoController?.photo.image)!
-            maskColor = CIColor(red: 1, green: 0, blue: 0, alpha: 0.2) // show mask in red color
-        }
-        else {
-            baseImage = (photoController?.photo.cachedImage)!
-            maskColor = CIColor(red: 1, green: 1, blue: 1) // masked blur will need grey mask
-        }
-        
-        // brush min - max values are percentages of image dimentions
-        let brushDiameter = Float(max (baseImage.size.width, baseImage.size.height)) * brushSizeSlider.floatValue / 100
-        
-        var maskImage: CIImage? =  nil
-        for blurCenter in points{
-            // draw the radial gradient mask instead of image
-            let gradientFilter = CIFilter(name: "CIRadialGradient",
-                                          withInputParameters: [
-                                            kCIInputCenterKey: CIVector(x: blurCenter.x, y: blurCenter.y),
-                                            "inputRadius0": brushDiameter/2 - 1.0,
-                                            "inputRadius1": brushDiameter/2, //  this will be nib width and feathering, no feathering now
-                                            "inputColor0": maskColor,
-                                            "inputColor1": CIColor(red: 0, green: 0, blue: 0, alpha: 0)])!
-            
-            guard let outCIImage = gradientFilter.outputImage else {return}
-            
-            if maskImage == nil{
-                maskImage = outCIImage
-            }
-            else{
-                maskImage = CIFilter(name:"CISourceOverCompositing", withInputParameters:["inputImage":outCIImage, "inputBackgroundImage": maskImage!])!.outputImage
-            }
-        }
-        
-        let result = NSImage(size: baseImage.size)
-        let sourceImage = CIImage(data: baseImage.tiffRepresentation!)
-        
-        if (mShowMask.state == NSOnState){
-            
-            let blendCI = CIFilter(name:"CISourceOverCompositing", withInputParameters:["inputImage": maskImage!, "inputBackgroundImage": sourceImage! ])!
-            let blendCIImage = blendCI.outputImage!
-            
-            let imageRep = NSCIImageRep(ciImage: blendCIImage)
-            result.addRepresentation(imageRep)
-            photoController?.setPhotoImage(result)
-            
-        }else{
-            let maskedVariableBlurParams : [String : AnyObject] = [kCIInputImageKey: sourceImage!, "inputRadius": 10.0 as AnyObject, "inputMask" : maskImage!]
-            
-            let filter = CIFilter(name: "CIMaskedVariableBlur", withInputParameters: maskedVariableBlurParams)!;
-            
-            let outputImage = filter.outputImage!
-            
-            let imageRep = NSCIImageRep(ciImage: outputImage)
-            result.addRepresentation(imageRep)
-            photoController?.setCommitPhotoImage(result)
-        }
-    }
-    
-    func addBrushPoints(mousePoints points: [CGPoint]){
-        //if EffectsList.allEffects[effectSelectionPopUp.selectedTag()] == EffectsList.blur {
-            runMaskedBlur(mousePoints: points)
-        //}
-    }
-    
+    }    
 }
 
 extension EditToolViewController: PhotoSubscriber {
