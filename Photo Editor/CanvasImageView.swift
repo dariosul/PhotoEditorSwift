@@ -79,12 +79,8 @@ class CanvasImageView: NSOpenGLView {
     
     func getCIImage() -> CIImage? {
         if _ciImage == nil && image != nil {
-            
             /* Convert NSImage to CIImage */
-            let imageData = image?.tiffRepresentation
-            let sourceData = CGImageSourceCreateWithData(imageData! as CFData, nil)
-            let cgImage: CGImage? = CGImageSourceCreateImageAtIndex(sourceData!, 0, nil)
-            _ciImage = CIImage(cgImage: cgImage!)
+            _ciImage = image?.convertToCIImage()
         }
         
         return _ciImage
@@ -208,11 +204,7 @@ class CanvasImageView: NSOpenGLView {
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT));
         
         if _ciImage == nil {
-            let imageData = image?.tiffRepresentation
-            let sourceData = CGImageSourceCreateWithData(imageData! as CFData, nil)
-            let cgImage: CGImage? = CGImageSourceCreateImageAtIndex(sourceData!, 0, nil)
-            let ciImage: CIImage? = CIImage(cgImage: cgImage!)
-            
+            let ciImage: CIImage? = image?.convertToCIImage()
             self._context?.draw(ciImage!, in: rr!, from: rr!)
         } else {
             self._context?.draw(self._ciImage!, in: rr!, from: rr!)

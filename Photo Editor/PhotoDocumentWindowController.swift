@@ -162,7 +162,7 @@ extension PhotoDocumentWindowController : NSUserInterfaceValidations {
         
         // The validation method above should ensure we have an image
         let photoController = self.photoController!
-        let image: NSImage = photoController.photo.image as NSImage!
+        let image: NSImage = (photoController.photo.image as NSImage?)!
         sizeViewController.imageSize = image.size
         sizeViewController.completionHandler = { size, response in
             if response == NSModalResponseOK {
