@@ -48,7 +48,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
             propagateToChildren(of: contentViewController!)
             
             // Push to our titlebar accessory view controllers
-            splitViewController.editSplitViewController.editToolViewController.photoController = photoController
+            splitViewController.developSplitViewController.editToolViewController.photoController = photoController
 //            effectsAccessoryViewController.photoController = photoController
             
             // Subscribe to photo changes
@@ -77,7 +77,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
             NotificationCenter.default.removeObserver(token)
         }
         
-        splitViewController.editSplitViewController.canvasController.removeSubscriber(self)
+        splitViewController.canvasController.removeSubscriber(self)
     }
     
     override func windowDidLoad() {
@@ -110,7 +110,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate, Mouse
             self?.updateWindowAppearance()
         }
         
-        splitViewController.editSplitViewController.canvasController.addSubscriber(self)
+        splitViewController.canvasController.addSubscriber(self)
     }
     
     // State restoration example: Save and restore the edit mode property
@@ -226,15 +226,15 @@ extension PhotoDocumentWindowController : NSUserInterfaceValidations {
     }
     
     @IBAction func zoomIn(_ sender: AnyObject!) {
-        splitViewController.editSplitViewController.canvasController.zoomIn(sender)
+        splitViewController.canvasController.zoomIn(sender)
     }
     
     @IBAction func zoomOut(_ sender: AnyObject!) {
-        splitViewController.editSplitViewController.canvasController.zoomOut(sender)
+        splitViewController.canvasController.zoomOut(sender)
     }
     
     @IBAction func zoomImageToActualSize(_ sender: AnyObject!) {
-        splitViewController.editSplitViewController.canvasController.zoomImageToActualSize(sender)
+        splitViewController.canvasController.zoomImageToActualSize(sender)
     }
     
 }
