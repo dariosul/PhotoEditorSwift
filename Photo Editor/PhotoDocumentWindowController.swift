@@ -155,7 +155,7 @@ extension PhotoDocumentWindowController : NSUserInterfaceValidations {
         
         // The validation method above should ensure we have an image
         let photoController = self.photoController!
-        let image: NSImage = photoController.photo.image as NSImage!
+        let image: NSImage = (photoController.photo.image as NSImage?)!
         sizeViewController.imageSize = image.size
         sizeViewController.completionHandler = { size, response in
             if response == NSModalResponseOK {
@@ -206,12 +206,15 @@ extension PhotoDocumentWindowController : NSUserInterfaceValidations {
         switch segment {
             case .zoomOut:
                 zoomOut(sender)
+            break
             
             case .actualSize:
                 zoomImageToActualSize(sender)
+            break
             
             case .zoomIn:
                 zoomIn(sender)
+            break
         }
     }
     
