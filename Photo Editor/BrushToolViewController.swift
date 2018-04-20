@@ -15,7 +15,7 @@ class BrushToolViewController: NSViewController, PhotoControllerConsumer {
         self.onBrushSizeChange(brushSizeSlider)
         self.onBrushColorChange(brushColorWell)
         self.exposureTextField.floatValue = 0.0
-        self.contrastTextFiled.floatValue = 1.0
+        self.contrastTextField.floatValue = 1.0
         self.saturationTextField.floatValue = 1.0
     }
     
@@ -31,7 +31,7 @@ class BrushToolViewController: NSViewController, PhotoControllerConsumer {
     @IBOutlet weak var exposureTextField: NSTextField!
     
     @IBOutlet weak var contrastSlider: NSSlider!
-    @IBOutlet weak var contrastTextFiled: NSTextField!
+    @IBOutlet weak var contrastTextField: NSTextField!
     
     @IBOutlet weak var saturationSlider: NSSlider!
     @IBOutlet weak var saturationTextField: NSTextField!
@@ -72,7 +72,7 @@ class BrushToolViewController: NSViewController, PhotoControllerConsumer {
                 contrastValue = 0.0
             }
             self.contrastSlider.floatValue = contrastValue!
-            self.contrastTextFiled.floatValue = contrastValue!
+            self.contrastTextField.floatValue = contrastValue!
             
             filterEffects?.setContrast(contrastValue)
             
@@ -241,7 +241,7 @@ extension BrushToolViewController: PhotoSubscriber {
         exposureTextField.floatValue = 0.0
         
         contrastSlider.floatValue = 1.0
-        contrastTextFiled.floatValue = 1.0
+        contrastTextField.floatValue = 1.0
         
         saturationSlider.floatValue = 1.0
         saturationTextField.floatValue = 1.0

@@ -1021,14 +1021,6 @@ Gw
                                 </view>
                                 <font key="titleFont" metaFont="system"/>
                             </box>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AvI-C2-wKE">
-                                <rect key="frame" x="91" y="124" width="96" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" sliderType="linear" id="3WK-dz-M3k"/>
-                                <connections>
-                                    <action selector="onExposureChange:" target="SMB-kW-9aO" id="8G7-bb-w75"/>
-                                </connections>
-                            </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvX-Js-muJ">
                                 <rect key="frame" x="91" y="54" width="96" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1073,13 +1065,21 @@ Gw
                                     <action selector="onSaturationChange:" target="SMB-kW-9aO" id="gBw-QW-Vyk"/>
                                 </connections>
                             </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AvI-C2-wKE">
+                                <rect key="frame" x="91" y="124" width="96" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" sliderType="linear" id="3WK-dz-M3k"/>
+                                <connections>
+                                    <action selector="onExposureChange:" target="SMB-kW-9aO" id="8G7-bb-w75"/>
+                                </connections>
+                            </slider>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="brushColorWell" destination="EEg-Sq-Ms3" id="6Zz-Ds-wCD"/>
                         <outlet property="brushSizeSlider" destination="pCx-1u-tE7" id="yP1-nL-Br9"/>
                         <outlet property="contrastSlider" destination="LSd-nC-B2h" id="7By-xO-2v5"/>
-                        <outlet property="contrastTextFiled" destination="FjA-TD-PD6" id="4UW-VY-zkv"/>
+                        <outlet property="contrastTextField" destination="FjA-TD-PD6" id="4UW-VY-zkv"/>
                         <outlet property="exposureSlider" destination="AvI-C2-wKE" id="zok-iK-Jy2"/>
                         <outlet property="exposureTextField" destination="SrZ-fl-htk" id="pEW-hi-7Xb"/>
                         <outlet property="mShowMask" destination="uPM-E2-DjH" id="uN4-NR-Mao"/>
@@ -1104,7 +1104,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="N61-rd-9eV"/>
                                 <connections>
-                                    <action selector="onContrastChange:" target="SMB-kW-9aO" id="3rh-sa-56b"/>
+                                    <action selector="onContrastChange:" target="3Om-io-Djp" id="bWe-W4-G4C"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gU4-EG-ZbT">
@@ -1139,7 +1139,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" sliderType="linear" id="p2c-5B-tMQ"/>
                                 <connections>
-                                    <action selector="onExposureChange:" target="SMB-kW-9aO" id="11Z-j9-sAj"/>
+                                    <action selector="onExposureChange:" target="3Om-io-Djp" id="gfo-yF-scE"/>
                                 </connections>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mDN-oj-LuI">
@@ -1147,7 +1147,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="iXN-Br-5wS"/>
                                 <connections>
-                                    <action selector="onSaturationChange:" target="SMB-kW-9aO" id="mQt-20-eI9"/>
+                                    <action selector="onSaturationChange:" target="3Om-io-Djp" id="fye-cH-QdP"/>
                                 </connections>
                             </slider>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2E-j2-1si" userLabel="ExposureTextField">
@@ -1188,6 +1188,14 @@ Gw
                             </textField>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="gContrastSlider" destination="nLi-QH-mrZ" id="0Ah-Z7-KwX"/>
+                        <outlet property="gContrastTextField" destination="mpJ-mB-ZM7" id="raf-Ld-yxi"/>
+                        <outlet property="gExposureSlider" destination="G0N-gH-U7o" id="7Vk-6d-X3e"/>
+                        <outlet property="gExposureTextField" destination="A2E-j2-1si" id="Zre-MK-y7O"/>
+                        <outlet property="gSaturationSlider" destination="mDN-oj-LuI" id="vpd-1Q-W7S"/>
+                        <outlet property="gSaturationTextField" destination="wWh-f5-xUc" id="Qyh-W4-UJN"/>
+                    </connections>
                 </viewController>
                 <customObject id="hRG-Sq-XJw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
