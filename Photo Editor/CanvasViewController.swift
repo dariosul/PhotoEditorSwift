@@ -54,8 +54,8 @@ class CanvasViewController: NSViewController, PhotoControllerConsumer, MouseDrag
     }
 
     func onNewBrushStroke(_ ciMaskImage: CIImage?) -> Void{
-        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
-        parentCtl.onNewBrushStroke(ciMaskImage)
+        let parentCtl: PhotoSplitViewController = self.parent as! PhotoSplitViewController
+        parentCtl.developSplitViewController.onNewBrushStroke(ciMaskImage)
     }
     
     @IBAction func zoomIn(_ sender: AnyObject!) {

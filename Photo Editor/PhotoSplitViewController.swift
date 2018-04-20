@@ -17,8 +17,27 @@ class PhotoSplitViewController: NSSplitViewController {
         return childViewControllers.lazy.filter { $0 is SidebarViewController }.first as? SidebarViewController
     }
     
-    var editSplitViewController: EditSplitViewController! {
-        return childViewControllers.lazy.filter { $0 is EditSplitViewController }.first as? EditSplitViewController
+    var developSplitViewController: DevelopSplitViewController! {
+        return childViewControllers.lazy.filter { $0 is DevelopSplitViewController }.first as? DevelopSplitViewController
     }
     
+    var canvasController: CanvasViewController! {
+        return childViewControllers.lazy.filter { $0 is CanvasViewController }.first as? CanvasViewController
+    }
+    
+    func setBrushSize(_ size: Float) -> Void {
+        let test = self.canvasController
+        test?.canvasImageView.brushSize = CGFloat(size)
+    }
+    
+    func setBrushColor(_ color: NSColor) -> Void {
+        canvasController.canvasImageView.color = color
+    }
+    
+    func setShowMask(_ showMask: Bool) -> Void {
+        canvasController.canvasImageView.showMask = showMask
+    }
+    func setDisplayImage(_ ciImage: CIImage) -> Void {
+        canvasController.canvasImageView.setCIImage(ciImage)
+    }
 }

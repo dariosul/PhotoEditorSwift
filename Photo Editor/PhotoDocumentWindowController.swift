@@ -48,7 +48,7 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
             propagateToChildren(of: contentViewController!)
             
             // Push to our titlebar accessory view controllers
-            splitViewController.editSplitViewController.editToolViewController.photoController = photoController
+            splitViewController.developSplitViewController.editToolViewController.photoController = photoController
 //            effectsAccessoryViewController.photoController = photoController
             
             // Subscribe to photo changes
@@ -76,7 +76,12 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
         if let token = appearanceObservationToken {
             NotificationCenter.default.removeObserver(token)
         }
+<<<<<<< HEAD
 
+=======
+        
+        splitViewController.canvasController.removeSubscriber(self)
+>>>>>>> 2f46ec0fb4a2fa7e335349e186a4b11d2c6956ea
     }
     
     override func windowDidLoad() {
@@ -108,6 +113,11 @@ class PhotoDocumentWindowController: NSWindowController, NSWindowDelegate {
         appearanceObservationToken = NotificationCenter.default.addObserver(forName: .appearanceChanged, object: nil, queue: nil) { [weak self] _ in
             self?.updateWindowAppearance()
         }
+<<<<<<< HEAD
+=======
+        
+        splitViewController.canvasController.addSubscriber(self)
+>>>>>>> 2f46ec0fb4a2fa7e335349e186a4b11d2c6956ea
     }
     
     // State restoration example: Save and restore the edit mode property
@@ -219,15 +229,15 @@ extension PhotoDocumentWindowController : NSUserInterfaceValidations {
     }
     
     @IBAction func zoomIn(_ sender: AnyObject!) {
-        splitViewController.editSplitViewController.canvasController.zoomIn(sender)
+        splitViewController.canvasController.zoomIn(sender)
     }
     
     @IBAction func zoomOut(_ sender: AnyObject!) {
-        splitViewController.editSplitViewController.canvasController.zoomOut(sender)
+        splitViewController.canvasController.zoomOut(sender)
     }
     
     @IBAction func zoomImageToActualSize(_ sender: AnyObject!) {
-        splitViewController.editSplitViewController.canvasController.zoomImageToActualSize(sender)
+        splitViewController.canvasController.zoomImageToActualSize(sender)
     }
     
 }

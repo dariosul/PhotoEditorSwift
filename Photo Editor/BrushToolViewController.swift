@@ -1,5 +1,5 @@
 //
-//  EditToolViewController.swift
+//  BrushToolViewController.swift
 //  Photo Editor
 //
 //  Created by cli mini on 2018-04-09.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EditToolViewController: NSViewController, PhotoControllerConsumer {
+class BrushToolViewController: NSViewController, PhotoControllerConsumer {
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -111,19 +111,19 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
         let ciImage = filterEffects?.outputImage()
         
         // Set display image for canvas image view
-        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        let parentCtl: DevelopSplitViewController = self.parent as! DevelopSplitViewController
         parentCtl.setDisplayImage(ciImage!)
     }
     
     @IBAction func onBrushSizeChange(_ sender: NSSlider) {
         // Set brush size for brush paint view
-        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        let parentCtl: DevelopSplitViewController = self.parent as! DevelopSplitViewController
         parentCtl.setBrushSize(sender.floatValue)
     }
     
     @IBAction func onBrushColorChange(_ sender: NSColorWell) {
         // Set brush color for brush paint view
-        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        let parentCtl: DevelopSplitViewController = self.parent as! DevelopSplitViewController
         parentCtl.setBrushColor(sender.color)
     }
 
@@ -131,7 +131,7 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     
     @IBAction func onShowMask(_ sender: NSButtonCell) {
         // Set brush color for brush paint view
-        let parentCtl: EditSplitViewController = self.parent as! EditSplitViewController
+        let parentCtl: DevelopSplitViewController = self.parent as! DevelopSplitViewController
         parentCtl.setShowMask(sender.state == NSOnState)
     }
 
@@ -162,7 +162,7 @@ class EditToolViewController: NSViewController, PhotoControllerConsumer {
     }    
 }
 
-extension EditToolViewController: PhotoSubscriber {
+extension BrushToolViewController: PhotoSubscriber {
     
     func photo(_ photo: Photo, didChangeImage image: NSImage?, from oldImage: NSImage?) {
         

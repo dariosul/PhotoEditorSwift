@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -770,7 +770,8 @@ Gw
                 <splitViewController id="7oG-ue-pcy" customClass="PhotoSplitViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
                         <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="ugc-tB-yc7"/>
-                        <splitViewItem id="2XR-xQ-ntv"/>
+                        <splitViewItem id="lOC-b4-y1J"/>
+                        <splitViewItem id="liG-Jg-pld"/>
                     </splitViewItems>
                     <splitView key="splitView" wantsLayer="YES" dividerStyle="thin" vertical="YES" id="mmG-L0-LTT">
                         <rect key="frame" x="383" y="0.0" width="497" height="338"/>
@@ -782,7 +783,8 @@ Gw
                     <connections>
                         <outlet property="splitView" destination="mmG-L0-LTT" id="cmN-Et-tUz"/>
                         <segue destination="XBV-V4-jOc" kind="relationship" relationship="splitItems" id="kYt-ju-8Zg"/>
-                        <segue destination="8cy-Wd-tnr" kind="relationship" relationship="splitItems" id="geS-db-f2E"/>
+                        <segue destination="cdX-YB-hsT" kind="relationship" relationship="splitItems" id="156-nR-0dc"/>
+                        <segue destination="d1N-Gv-64b" kind="relationship" relationship="splitItems" id="n85-LY-bBH"/>
                     </connections>
                 </splitViewController>
                 <customObject id="ics-KB-GMC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -801,13 +803,13 @@ Gw
                                 <rect key="frame" x="0.0" y="0.0" width="173" height="300"/>
                                 <subviews>
                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDo-St-fvb">
-                                        <rect key="frame" x="0.0" y="26" width="173" height="274"/>
+                                        <rect key="frame" x="0.0" y="25" width="173" height="275"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="wSg-RF-7wd" customClass="SidebarClipView" customModule="Photo_Editor" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="173" height="274"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="173" height="275"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnSelection="YES" autosaveColumns="NO" rowHeight="40" viewBased="YES" id="91w-yT-6WQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="173" height="274"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="173" height="275"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -880,7 +882,7 @@ Gw
                                         </scroller>
                                     </scrollView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rAr-WI-vbA">
-                                        <rect key="frame" x="4" y="4" width="88" height="18"/>
+                                        <rect key="frame" x="4" y="4" width="88" height="17"/>
                                         <buttonCell key="cell" type="inline" title="Choose…" bezelStyle="inline" image="FolderTemplate" imagePosition="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="uYd-ek-af8">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -918,37 +920,12 @@ Gw
                 </viewController>
                 <customObject id="ssh-Aq-zDM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-138" y="1365"/>
+            <point key="canvasLocation" x="-467" y="1365"/>
         </scene>
-        <!--Edit Split View Controller-->
-        <scene sceneID="gLu-0Z-UUA">
-            <objects>
-                <splitViewController id="8cy-Wd-tnr" customClass="EditSplitViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
-                    <splitViewItems>
-                        <splitViewItem id="yqe-Zu-09V"/>
-                        <splitViewItem id="oWP-aA-eIj"/>
-                    </splitViewItems>
-                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="aGU-OE-zBQ">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <outlet property="delegate" destination="8cy-Wd-tnr" id="cOA-HQ-83U"/>
-                        </connections>
-                    </splitView>
-                    <connections>
-                        <outlet property="splitView" destination="aGU-OE-zBQ" id="1zj-LM-qmb"/>
-                        <segue destination="cdX-YB-hsT" kind="relationship" relationship="splitItems" id="pBJ-NN-yi5"/>
-                        <segue destination="SMB-kW-9aO" kind="relationship" relationship="splitItems" id="0ve-wF-hJT"/>
-                    </connections>
-                </splitViewController>
-                <customObject id="sEM-CC-nQe" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="342" y="1365"/>
-        </scene>
-        <!--Edit Tool View Controller-->
+        <!--Brush Tool View Controller-->
         <scene sceneID="vvs-xN-EmB">
             <objects>
-                <viewController id="SMB-kW-9aO" customClass="EditToolViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="SMB-kW-9aO" customClass="BrushToolViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="eu5-nQ-gPg">
                         <rect key="frame" x="0.0" y="0.0" width="259" height="442"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1112,7 +1089,134 @@ Gw
                 </viewController>
                 <customObject id="oE0-yO-Tiu" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="839.5" y="1189"/>
+            <point key="canvasLocation" x="901" y="1111"/>
+        </scene>
+        <!--Global Tool View Controller-->
+        <scene sceneID="LE3-nJ-gdY">
+            <objects>
+                <viewController id="3Om-io-Djp" customClass="GlobalToolViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="vVQ-p1-Tjm">
+                        <rect key="frame" x="0.0" y="0.0" width="259" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLi-QH-mrZ">
+                                <rect key="frame" x="94" y="202" width="96" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="N61-rd-9eV"/>
+                                <connections>
+                                    <action selector="onContrastChange:" target="SMB-kW-9aO" id="3rh-sa-56b"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gU4-EG-ZbT">
+                                <rect key="frame" x="18" y="239" width="61" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Exposure" id="CSO-pg-Ix4">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z5t-cj-oNO">
+                                <rect key="frame" x="18" y="204" width="57" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Contrast" id="GfE-2H-uOI">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mCZ-pn-LVH">
+                                <rect key="frame" x="18" y="170" width="67" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Saturation" id="UME-RA-cmA">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0N-gH-U7o">
+                                <rect key="frame" x="94" y="237" width="96" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="-2" maxValue="2" tickMarkPosition="below" sliderType="linear" id="p2c-5B-tMQ"/>
+                                <connections>
+                                    <action selector="onExposureChange:" target="SMB-kW-9aO" id="11Z-j9-sAj"/>
+                                </connections>
+                            </slider>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mDN-oj-LuI">
+                                <rect key="frame" x="94" y="167" width="96" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="iXN-Br-5wS"/>
+                                <connections>
+                                    <action selector="onSaturationChange:" target="SMB-kW-9aO" id="mQt-20-eI9"/>
+                                </connections>
+                            </slider>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2E-j2-1si" userLabel="ExposureTextField">
+                                <rect key="frame" x="196" y="238" width="30" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" drawsBackground="YES" id="t6m-Fd-RJn">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="onExposureChange:" target="SMB-kW-9aO" id="fcf-BK-gdj"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mpJ-mB-ZM7" userLabel="ContrastTextField">
+                                <rect key="frame" x="196" y="203" width="30" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" drawsBackground="YES" id="wqe-NA-eYu">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="onContrastChange:" target="SMB-kW-9aO" id="xJI-dm-fiI"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wWh-f5-xUc" userLabel="SaturationTextField">
+                                <rect key="frame" x="196" y="170" width="30" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" drawsBackground="YES" id="oC6-Sg-sqg">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="onSaturationChange:" target="SMB-kW-9aO" id="Ekp-ew-856"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="hRG-Sq-XJw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900.5" y="1537"/>
+        </scene>
+        <!--Develop Split View Controller-->
+        <scene sceneID="qa0-Oo-K5e">
+            <objects>
+                <splitViewController id="d1N-Gv-64b" customClass="DevelopSplitViewController" customModule="Photo_Editor" customModuleProvider="target" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="obW-oA-KiH"/>
+                        <splitViewItem id="tWD-7W-gjo"/>
+                    </splitViewItems>
+                    <splitView key="splitView" dividerStyle="thin" id="F1N-5V-ifl">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="d1N-Gv-64b" id="cee-9g-JAb"/>
+                        </connections>
+                    </splitView>
+                    <connections>
+                        <outlet property="splitView" destination="F1N-5V-ifl" id="jND-RB-g5T"/>
+                        <segue destination="SMB-kW-9aO" kind="relationship" relationship="splitItems" id="okv-4D-CGh"/>
+                        <segue destination="3Om-io-Djp" kind="relationship" relationship="splitItems" id="h3t-qw-cjk"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="8ZP-bb-Oef" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="426" y="1365"/>
         </scene>
         <!--Canvas View Controller-->
         <scene sceneID="FdD-kj-dQd">
@@ -1191,7 +1295,7 @@ Gw
                 </viewController>
                 <customObject id="B1q-5N-sC6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="970" y="1617"/>
+            <point key="canvasLocation" x="-87" y="1365"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="zZ5-qT-ECb">
@@ -1232,14 +1336,14 @@ Gw
                                 <rect key="frame" x="79" y="37" width="213" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" id="Jw8-Di-wbO">
-                                    <rect key="frame" x="1" y="1" width="211" height="65"/>
+                                    <rect key="frame" x="1" y="1" width="196" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView ambiguous="YES" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="EZk-jr-k4A">
-                                            <rect key="frame" x="0.0" y="0.0" width="211" height="65"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="196" height="65"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="211" height="65"/>
+                                            <size key="minSize" width="196" height="65"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="I really want to visit this place some day! The views look amazing.">
@@ -1259,7 +1363,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="fIv-28-CIl">
-                                    <rect key="frame" x="196" y="1" width="16" height="65"/>
+                                    <rect key="frame" x="197" y="1" width="15" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -1311,7 +1415,7 @@ Gw
                 </viewController>
                 <customObject id="DWr-Hw-dsk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-391" y="1136"/>
+            <point key="canvasLocation" x="-590" y="1041"/>
         </scene>
         <!--Titlebar Accessory View Controller-->
         <scene sceneID="taP-m6-flZ">
