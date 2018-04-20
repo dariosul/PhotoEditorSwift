@@ -65,8 +65,8 @@ class BrushPaintView: CanvasImageView {
     //////
     
     override func clearView() -> Void {
-        self.imageAccumulator = nil
-        self.brushMaskAccumulator = nil
+        self.imageAccumulator = nil // paints on screen
+        self.brushMaskAccumulator = nil // collect stroke
     }
     
     override func viewBoundsDidChange(_ bounds: NSRect) -> Void {
@@ -119,8 +119,12 @@ class BrushPaintView: CanvasImageView {
     
     /*  Mouse Action Handlers  */
     override func mouseDragged(with event: NSEvent) {
-        let brushFilter = self.brushFilter
+        
+        // Get new brushed point
         let loc: NSPoint = self.convert(event.locationInWindow, from: nil)
+        
+        // Add point to current selected brush
+        let brushFilter = self.brushFilter
         brushFilter?.setValue(self.brushSize, forKey: "inputRadius1")
         
         let cicolor = CIColor(color: self.color!)

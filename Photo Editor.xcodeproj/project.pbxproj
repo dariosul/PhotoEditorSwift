@@ -33,6 +33,9 @@
 		DD716491207C3A1100A313A0 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD716490207C3A1100A313A0 /* OpenGL.framework */; };
 		DDA7E5A3208813D900943DF0 /* NSImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7E5A2208813D900943DF0 /* NSImageExtensions.swift */; };
 		DDA7E5B720892AC900943DF0 /* GlobalToolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7E5B620892AC900943DF0 /* GlobalToolViewController.swift */; };
+		DDA7E5BA208958D600943DF0 /* DevelopBaseBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7E5B9208958D600943DF0 /* DevelopBaseBrush.swift */; };
+		DDA7E5BC2089684200943DF0 /* DevelopTuneBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7E5BB2089684200943DF0 /* DevelopTuneBrush.swift */; };
+		DDA7E5BE2089686200943DF0 /* DevelopDetailBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7E5BD2089686200943DF0 /* DevelopDetailBrush.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +69,9 @@
 		DD716490207C3A1100A313A0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		DDA7E5A2208813D900943DF0 /* NSImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageExtensions.swift; sourceTree = "<group>"; };
 		DDA7E5B620892AC900943DF0 /* GlobalToolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalToolViewController.swift; sourceTree = "<group>"; };
+		DDA7E5B9208958D600943DF0 /* DevelopBaseBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopBaseBrush.swift; sourceTree = "<group>"; };
+		DDA7E5BB2089684200943DF0 /* DevelopTuneBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopTuneBrush.swift; sourceTree = "<group>"; };
+		DDA7E5BD2089686200943DF0 /* DevelopDetailBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopDetailBrush.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				1F5D86571CE52F3300C1D404 /* AppDelegate.swift */,
+				DDA7E5B82089589800943DF0 /* Brush */,
 				1F46B5421CF5B849000E0B1E /* Data */,
 				1F46B5431CF5B850000E0B1E /* Document Window */,
 				1F46B5411CF5B832000E0B1E /* Sidebar */,
@@ -194,6 +201,16 @@
 				DD716490207C3A1100A313A0 /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DDA7E5B82089589800943DF0 /* Brush */ = {
+			isa = PBXGroup;
+			children = (
+				DDA7E5B9208958D600943DF0 /* DevelopBaseBrush.swift */,
+				DDA7E5BB2089684200943DF0 /* DevelopTuneBrush.swift */,
+				DDA7E5BD2089686200943DF0 /* DevelopDetailBrush.swift */,
+			);
+			name = Brush;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,12 +290,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DFBA0941CFE3ED30085F6AF /* WindowDraggableButton.swift in Sources */,
+				DDA7E5BE2089686200943DF0 /* DevelopDetailBrush.swift in Sources */,
 				1F5D86691CE536BC00C1D404 /* InterfacePreferencesViewController.swift in Sources */,
 				1F6967C11CF3B9D200520B64 /* Defaults.swift in Sources */,
+				DDA7E5BC2089684200943DF0 /* DevelopTuneBrush.swift in Sources */,
 				1F46B53E1CF59C3E000E0B1E /* CanvasImageView.swift in Sources */,
 				DDA7E5A3208813D900943DF0 /* NSImageExtensions.swift in Sources */,
 				DD402ED2207D535900174656 /* BrushPaintView.swift in Sources */,
 				1FC619F51CEE6B4A001E2DDF /* PhotoDocumentWindowController.swift in Sources */,
+				DDA7E5BA208958D600943DF0 /* DevelopBaseBrush.swift in Sources */,
 				DD71648C207C1BA700A313A0 /* DevelopSplitViewController.swift in Sources */,
 				1F3B41751CF3C87E00603D63 /* CanvasScrollView.swift in Sources */,
 				DDA7E5B720892AC900943DF0 /* GlobalToolViewController.swift in Sources */,
