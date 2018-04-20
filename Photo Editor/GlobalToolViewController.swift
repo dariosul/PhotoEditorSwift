@@ -45,6 +45,7 @@ class GlobalToolViewController: NSViewController, PhotoControllerConsumer {
         }
     }
     
+    // TODO: the internal structure of Effects will need to change so that changes received from GlobalToolViewCtrl and BrushToolViewCtrl work together
     func updatePreview(size: NSSize) -> Void {
         let ciImage = effects?.outputImage()
         

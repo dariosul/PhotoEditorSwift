@@ -21,7 +21,7 @@ class DevelopBaseBrush {
      */
     var strokePointFilter: CIFilter? = CIFilter(name: "CIRadialGradient",
                                                 withInputParameters: ["inputColor1" : CIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0),
-                                                                      "inputRadius0": 0.0])
+                                                                      "inputRadius0": 0.0, "inputRadius1": 0.0])
     
     // Clear stroke
     var isClearStroke = false

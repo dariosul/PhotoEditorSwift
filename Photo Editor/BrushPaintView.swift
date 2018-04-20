@@ -12,6 +12,8 @@ class BrushPaintView: CanvasImageView {
 
     var color: NSColor? = nil
     var brushSize: CGFloat = 0.0
+    var featheringSize: CGFloat = 0.0 // there is no feathering slider yet in UI
+    
     var showMask: Bool = true {
         didSet(oldValue){
             if (showMask){
@@ -48,7 +50,7 @@ class BrushPaintView: CanvasImageView {
         
         color = NSColor(deviceRed: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
         brushFilter = CIFilter(name: "CIRadialGradient", withInputParameters: ["inputColor1" : CIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0),
-                                                                               "inputRadius0": 0.0])
+                                                                               "inputRadius0": 0.0, "inputRadius1": 0.0])
         compositeFilter = CIFilter(name: "CISourceOverCompositing")
     }
     
@@ -58,7 +60,7 @@ class BrushPaintView: CanvasImageView {
         
         color = NSColor(deviceRed: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
         brushFilter = CIFilter(name: "CIRadialGradient", withInputParameters: ["inputColor1" : CIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0),
-                                                                               "inputRadius0": 0.0])
+                                                                               "inputRadius0": 0.0, "inputRadius1": 0.0])
         compositeFilter = CIFilter(name: "CISourceOverCompositing")
     }
     
@@ -125,7 +127,8 @@ class BrushPaintView: CanvasImageView {
         
         // Add point to current selected brush
         let brushFilter = self.brushFilter
-        brushFilter?.setValue(self.brushSize, forKey: "inputRadius1")
+        brushFilter?.setValue(self.brushSize, forKey: "inputRadius0")
+        brushFilter?.setValue(self.brushSize + self.featheringSize, forKey: "inputRadius1")
         
         let cicolor = CIColor(color: self.color!)
         brushFilter?.setValue(cicolor, forKey: "inputColor0")
@@ -138,7 +141,9 @@ class BrushPaintView: CanvasImageView {
         compositeFilter?.setValue(self.imageAccumulator?.image(), forKey: "inputBackgroundImage")
         
         let brushSize = self.brushSize
-        let rect = CGRect(x: loc.x-brushSize, y: loc.y-brushSize, width: 2.0*brushSize, height: 2.0*brushSize)
+        let featheringSize = self.featheringSize
+        let brushRad = brushSize + featheringSize
+        let rect = CGRect(x: loc.x-brushRad, y: loc.y-brushRad, width: 2.0*brushRad, height: 2.0*brushRad)
         self.imageAccumulator?.setImage((compositeFilter?.outputImage)!, dirtyRect: rect)
         
         /////////////
@@ -146,7 +151,7 @@ class BrushPaintView: CanvasImageView {
         let brushMaskFilter = CIFilter(name: "CIRadialGradient",
                                        withInputParameters: ["inputColor0": CIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0),
                                                             "inputColor1" : CIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0),
-                                                            "inputRadius0": 0.0, "inputRadius1": self.brushSize,
+                                                            "inputRadius0": brushSize, "inputRadius1": brushRad,
                                                             "inputCenter": inputCenter])
         
         let compositeMaskFilter = CIFilter(name: "CISourceOverCompositing")
