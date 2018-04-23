@@ -36,6 +36,7 @@
 		DDA7E5BA208958D600943DF0 /* DevelopBaseBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7E5B9208958D600943DF0 /* DevelopBaseBrush.swift */; };
 		DDA7E5BC2089684200943DF0 /* DevelopTuneBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7E5BB2089684200943DF0 /* DevelopTuneBrush.swift */; };
 		DDA7E5BE2089686200943DF0 /* DevelopDetailBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA7E5BD2089686200943DF0 /* DevelopDetailBrush.swift */; };
+		FB5D68DB208E595B00CF95D9 /* DevelopSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5D68DA208E595B00CF95D9 /* DevelopSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		DDA7E5B9208958D600943DF0 /* DevelopBaseBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopBaseBrush.swift; sourceTree = "<group>"; };
 		DDA7E5BB2089684200943DF0 /* DevelopTuneBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopTuneBrush.swift; sourceTree = "<group>"; };
 		DDA7E5BD2089686200943DF0 /* DevelopDetailBrush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopDetailBrush.swift; sourceTree = "<group>"; };
+		FB5D68DA208E595B00CF95D9 /* DevelopSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 				DDA7E5B9208958D600943DF0 /* DevelopBaseBrush.swift */,
 				DDA7E5BB2089684200943DF0 /* DevelopTuneBrush.swift */,
 				DDA7E5BD2089686200943DF0 /* DevelopDetailBrush.swift */,
+				FB5D68DA208E595B00CF95D9 /* DevelopSettings.swift */,
 			);
 			name = Brush;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				1F6967C11CF3B9D200520B64 /* Defaults.swift in Sources */,
 				DDA7E5BC2089684200943DF0 /* DevelopTuneBrush.swift in Sources */,
 				1F46B53E1CF59C3E000E0B1E /* CanvasImageView.swift in Sources */,
+				FB5D68DB208E595B00CF95D9 /* DevelopSettings.swift in Sources */,
 				DDA7E5A3208813D900943DF0 /* NSImageExtensions.swift in Sources */,
 				DD402ED2207D535900174656 /* BrushPaintView.swift in Sources */,
 				1FC619F51CEE6B4A001E2DDF /* PhotoDocumentWindowController.swift in Sources */,
