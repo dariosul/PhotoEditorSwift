@@ -41,8 +41,10 @@ class Effects {
     var mExposure: CIFilter? = nil
     var mColorControls: CIFilter? = nil
     
-    var mMaskImage: CIImage? = nil
+    var mMaskImage: CIImage? = nil // todo : will be removed
     var mBaseImage: CIImage? = nil
+    
+    var mDevelopParam: DevelopSettings? = nil
     
     init() {
         

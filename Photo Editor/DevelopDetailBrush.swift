@@ -11,3 +11,6 @@ import Cocoa
 class DevelopDetailBrush: DevelopBaseBrush {
     var sharpen: CIFilter? = nil
 }
+
+
+// this class not used for now

@@ -12,13 +12,15 @@ class DevelopSplitViewController: NSSplitViewController {
     // This method is less generic than our protocol-based approach, but sometimes necessary.
     // Here we assume that at least one child must conform to the desired type; the use of an implicitly-unwrapped optional results in a runtime error if this isn't true.
     
+    var filterEffects: Effects? = nil
+    
     var editToolViewController: BrushToolViewController! {
         return childViewControllers.lazy.filter { $0 is BrushToolViewController }.first as? BrushToolViewController
     }
     
-//    var globalToolViewController: NSViewController! {
-//        return childViewControllers.lazy.filter { $0 is NSViewController }.first as? NSViewController
-//    }
+    var globalToolViewController: GlobalToolViewController! {
+        return childViewControllers.lazy.filter { $0 is GlobalToolViewController }.first as? GlobalToolViewController
+    }
     
     func setBrushSize(_ size: Float) -> Void {
         let parentCtl: PhotoSplitViewController = self.parent as! PhotoSplitViewController

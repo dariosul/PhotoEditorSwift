@@ -29,7 +29,7 @@ class DevelopBaseBrush {
     // invert stroke
     var isInvertStroke = false
     
-    var developSettings: NSDictionary = NSDictionary()
+    //var developSettings: NSDictionary = NSDictionary()
     
     
 }
